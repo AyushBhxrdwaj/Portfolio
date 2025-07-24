@@ -1,8 +1,8 @@
-import DotGrid from "@/blocks/Backgrounds/DotGrid";
 import LightRays from "@/blocks/Backgrounds/LightRays";
 import TextTyper from "@/blocks/TextAnimations/TextType";
 import React from "react";
-import { RainbowButton } from "./ui/rainbow-button";
+import { InteractiveHoverButton } from "./ui/interactive-hover-button";
+import RippleGrid from "@/blocks/Backgrounds/RippleGrid";
 
 const Hero = () => {
   return (
@@ -10,10 +10,10 @@ const Hero = () => {
       <div className="absolute inset-0">
         <LightRays
           raysOrigin="top-center"
-          raysColor="#FFCE33"
+          raysColor="#FF"
           raysSpeed={1}
-          lightSpread={2}
-          rayLength={1.5}
+          lightSpread={1.5}
+          rayLength={1}
           followMouse={true}
           mouseInfluence={0.1}
           noiseAmount={0.1}
@@ -21,18 +21,16 @@ const Hero = () => {
           className="custom-rays"
         />
       </div>
-      <div className=" absolute inset-0">
-        <DotGrid
-          dotSize={8}
-          gap={15}
-          baseColor="#271E37"
-          activeColor="#5227FF"
-          proximity={120}
-          shockRadius={250}
-          shockStrength={5}
-          resistance={750}
-          returnDuration={1.5}
-          className="w-full h-full"
+      <div className="absolute inset-0">
+        <RippleGrid
+          enableRainbow={false}
+          gridColor="#5227ff"
+          rippleIntensity={0.05}
+          gridSize={10}
+          gridThickness={15}
+          mouseInteraction={true}
+          mouseInteractionRadius={1.2}
+          opacity={0.8}
         />
       </div>
       <div className="flex justify-center relative my-20 z-10">
@@ -41,7 +39,11 @@ const Hero = () => {
             Web Developer, Problem Solver, Detail-Obsessed
           </h1>
           <TextTyper
-            text={["I love turning challenges into clean solutions.","I bring interfaces to life with precision and flair.","Building sites that feel alive."]}
+            text={[
+              "I love turning challenges into clean solutions.",
+              "I bring interfaces to life with precision and flair.",
+              "Building sites that feel alive.",
+            ]}
             className="text-[30px] font-bold text-center md:text-5xl lg:text-6xl"
             typingSpeed={100}
             pauseDuration={2000}
@@ -51,7 +53,9 @@ const Hero = () => {
           <p className="text-center mt-3 md:tracking-wider mb-4 md:text-lg lg:text-2xl text-lg text-gray-300 font-bold">
             Hi, I&apos;m Ayush — I Build on the Web
           </p>
-          <RainbowButton className="text-sm bg-gray-500" variant="outline" size="lg">Click Me</RainbowButton>
+          <InteractiveHoverButton className="text-sm font-semibold bg-gray-600">
+            Show my work
+          </InteractiveHoverButton>
         </div>
       </div>
     </div>
