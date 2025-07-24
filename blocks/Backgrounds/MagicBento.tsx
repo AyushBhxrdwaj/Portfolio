@@ -1,16 +1,18 @@
 /*
 	Installed from https://reactbits.dev/ts/tailwind/
 */
-'use client'
+"use client";
 import React, { useRef, useEffect, useState, useCallback } from "react";
 import { gsap } from "gsap";
 
 export interface BentoCardProps {
+  id?: number;
   color?: string;
   title?: string;
   description?: string;
   label?: string;
   textAutoHide?: boolean;
+  img?: string;
   disableAnimations?: boolean;
 }
 
@@ -35,47 +37,72 @@ const MOBILE_BREAKPOINT = 768;
 
 const cardData: BentoCardProps[] = [
   {
-    color: "#060010",
-    title: "Analytics",
-    description: "Track user behavior",
-    label: "Insights",
+    id: 1,
+    title: "I prioritize client collaboration, fostering open communication ",
+    description: "",
+    className: "lg:col-span-3 md:col-span-6 md:row-span-4 lg:min-h-[60vh]",
+    imgClassName: "w-full h-full",
+    titleClassName: "justify-end",
+    img: "/b1.svg",
+    spareImg: "",
   },
   {
-    color: "#060010",
-    title: "Dashboard",
-    description: "Centralized data view",
-    label: "Overview",
+    id: 2,
+    title: "I'm very flexible with time zone communications",
+    description: "",
+    className: "lg:col-span-2 md:col-span-3 md:row-span-2",
+    imgClassName: "",
+    titleClassName: "justify-start",
+    img: "",
+    spareImg: "",
   },
   {
-    color: "#060010",
-    title: "Collaboration",
-    description: "Work together seamlessly",
-    label: "Teamwork",
+    id: 3,
+    title: "My tech stack",
+    description: "I constantly try to improve",
+    className: "lg:col-span-2 md:col-span-3 md:row-span-2",
+    imgClassName: "",
+    titleClassName: "justify-center",
+    img: "",
+    spareImg: "",
   },
   {
-    color: "#060010",
-    title: "Automation",
-    description: "Streamline workflows",
-    label: "Efficiency",
+    id: 4,
+    title: "Tech enthusiast with a passion for development.",
+    description: "",
+    className: "lg:col-span-2 md:col-span-3 md:row-span-1",
+    imgClassName: "",
+    titleClassName: "justify-start",
+    img: "/grid.svg",
+    spareImg: "/b4.svg",
+  },
+
+  {
+    id: 5,
+    title: "Currently building a JS Animation library",
+    description: "The Inside Scoop",
+    className: "md:col-span-3 md:row-span-2",
+    imgClassName: "absolute right-0 bottom-0 md:w-96 w-60",
+    titleClassName: "justify-center md:justify-start lg:justify-center",
+    img: "/b5.svg",
+    spareImg: "/grid.svg",
   },
   {
-    color: "#060010",
-    title: "Integration",
-    description: "Connect favorite tools",
-    label: "Connectivity",
-  },
-  {
-    color: "#060010",
-    title: "Security",
-    description: "Enterprise-grade protection",
-    label: "Protection",
+    id: 6,
+    title: "Do you want to start a project together?",
+    description: "",
+    className: "lg:col-span-2 md:col-span-3 md:row-span-1",
+    imgClassName: "",
+    titleClassName: "justify-center md:max-w-full max-w-60 text-center",
+    img: "",
+    spareImg: "",
   },
 ];
 
 const createParticleElement = (
   x: number,
   y: number,
-  color: string = DEFAULT_GLOW_COLOR,
+  color: string = DEFAULT_GLOW_COLOR
 ): HTMLDivElement => {
   const el = document.createElement("div");
   el.className = "particle";
@@ -104,7 +131,7 @@ const updateCardGlowProperties = (
   mouseX: number,
   mouseY: number,
   glow: number,
-  radius: number,
+  radius: number
 ) => {
   const rect = card.getBoundingClientRect();
   const relativeX = ((mouseX - rect.left) / rect.width) * 100;
@@ -153,8 +180,8 @@ const ParticleCard: React.FC<{
       createParticleElement(
         Math.random() * width,
         Math.random() * height,
-        glowColor,
-      ),
+        glowColor
+      )
     );
     particlesInitialized.current = true;
   }, [particleCount, glowColor]);
@@ -196,7 +223,7 @@ const ParticleCard: React.FC<{
         gsap.fromTo(
           clone,
           { scale: 0, opacity: 0 },
-          { scale: 1, opacity: 1, duration: 0.3, ease: "back.out(1.7)" },
+          { scale: 1, opacity: 1, duration: 0.3, ease: "back.out(1.7)" }
         );
 
         gsap.to(clone, {
@@ -311,7 +338,7 @@ const ParticleCard: React.FC<{
         Math.hypot(x, y),
         Math.hypot(x - rect.width, y),
         Math.hypot(x, y - rect.height),
-        Math.hypot(x - rect.width, y - rect.height),
+        Math.hypot(x - rect.width, y - rect.height)
       );
 
       const ripple = document.createElement("div");
@@ -341,7 +368,7 @@ const ParticleCard: React.FC<{
           duration: 0.8,
           ease: "power2.out",
           onComplete: () => ripple.remove(),
-        },
+        }
       );
     };
 
@@ -478,7 +505,7 @@ const GlobalSpotlight: React.FC<{
           e.clientX,
           e.clientY,
           glowIntensity,
-          spotlightRadius,
+          spotlightRadius
         );
       });
 
@@ -493,8 +520,8 @@ const GlobalSpotlight: React.FC<{
         minDistance <= proximity
           ? 0.8
           : minDistance <= fadeDistance
-            ? ((fadeDistance - minDistance) / (fadeDistance - proximity)) * 0.8
-            : 0;
+          ? ((fadeDistance - minDistance) / (fadeDistance - proximity)) * 0.8
+          : 0;
 
       gsap.to(spotlightRef.current, {
         opacity: targetOpacity,
@@ -745,17 +772,27 @@ const MagicBento: React.FC<BentoProps> = ({
                   clickEffect={clickEffect}
                   enableMagnetism={enableMagnetism}
                 >
+                  {card.img && (
+                    <div
+                      className="absolute inset-0 w-full h-full bg-cover bg-center rounded-[20px] opacity-20 group-hover:opacity-30 transition-opacity"
+                      style={{ backgroundImage: `url(${card.img})` }}
+                    />
+                  )}
                   <div className="card__header flex justify-between gap-3 relative text-white">
                     <span className="card__label text-base">{card.label}</span>
                   </div>
                   <div className="card__content flex flex-col relative text-white">
                     <h3
-                      className={`card__title font-normal text-base m-0 mb-1 ${textAutoHide ? "text-clamp-1" : ""}`}
+                      className={`card__title font-normal text-base m-0 mb-1 ${
+                        textAutoHide ? "text-clamp-1" : ""
+                      }`}
                     >
                       {card.title}
                     </h3>
                     <p
-                      className={`card__description text-xs leading-5 opacity-90 ${textAutoHide ? "text-clamp-2" : ""}`}
+                      className={`card__description text-xs leading-5 opacity-90 ${
+                        textAutoHide ? "text-clamp-2" : ""
+                      }`}
                     >
                       {card.description}
                     </p>
@@ -840,7 +877,7 @@ const MagicBento: React.FC<BentoProps> = ({
                       Math.hypot(x, y),
                       Math.hypot(x - rect.width, y),
                       Math.hypot(x, y - rect.height),
-                      Math.hypot(x - rect.width, y - rect.height),
+                      Math.hypot(x - rect.width, y - rect.height)
                     );
 
                     const ripple = document.createElement("div");
@@ -870,7 +907,7 @@ const MagicBento: React.FC<BentoProps> = ({
                         duration: 0.8,
                         ease: "power2.out",
                         onComplete: () => ripple.remove(),
-                      },
+                      }
                     );
                   };
 
@@ -884,12 +921,16 @@ const MagicBento: React.FC<BentoProps> = ({
                 </div>
                 <div className="card__content flex flex-col relative text-white">
                   <h3
-                    className={`card__title font-normal text-base m-0 mb-1 ${textAutoHide ? "text-clamp-1" : ""}`}
+                    className={`card__title font-normal text-base m-0 mb-1 ${
+                      textAutoHide ? "text-clamp-1" : ""
+                    }`}
                   >
                     {card.title}
                   </h3>
                   <p
-                    className={`card__description text-xs leading-5 opacity-90 ${textAutoHide ? "text-clamp-2" : ""}`}
+                    className={`card__description text-xs leading-5 opacity-90 ${
+                      textAutoHide ? "text-clamp-2" : ""
+                    }`}
                   >
                     {card.description}
                   </p>
