@@ -6,7 +6,7 @@ const Grid = () => {
       <MagicBento
         textAutoHide={true}
         enableStars={true}
-        enableSpotlight={true}
+        enableSpotlight={false}
         enableBorderGlow={true}
         enableTilt={true}
         enableMagnetism={true}

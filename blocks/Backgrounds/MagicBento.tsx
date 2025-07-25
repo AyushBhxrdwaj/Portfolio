@@ -38,13 +38,10 @@ const MOBILE_BREAKPOINT = 768;
 const cardData: BentoCardProps[] = [
   {
     id: 1,
-    title: "I prioritize client collaboration, fostering open communication ",
+    title: "I design scalable Apps ",
     description: "",
-    className: "lg:col-span-3 md:col-span-6 md:row-span-4 lg:min-h-[60vh]",
-    imgClassName: "w-full h-full",
-    titleClassName: "justify-end",
     img: "/b1.svg",
-    spareImg: "",
+    color:"#060010"
   },
   {
     id: 2,
@@ -774,7 +771,7 @@ const MagicBento: React.FC<BentoProps> = ({
                 >
                   {card.img && (
                     <div
-                      className="absolute inset-0 w-full h-full bg-cover bg-center rounded-[20px] opacity-20 group-hover:opacity-30 transition-opacity"
+                      className="absolute inset-0 w-full h-full bg-cover bg-center rounded-[20px] opacity-70 group-hover:opacity-30 transition-opacity"
                       style={{ backgroundImage: `url(${card.img})` }}
                     />
                   )}
