@@ -10,8 +10,8 @@ const Home = () => {
     { label: "Contact", href: "#" },
   ];
   return (
-    <main className=" bg-black-100 flex justify-center items-center flex-col sm:px-10 overflow-hidden mx-auto">
-      <div className="w-screen max-w-8xl">
+    <main className=" flex justify-center items-center flex-col sm:px-10 overflow-hidden mx-auto">
+      <div className="bg-zinc-900 w-screen max-w-8xl">
         <GooeyNav
           items={items}
           particleCount={15}
