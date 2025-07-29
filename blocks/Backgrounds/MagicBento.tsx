@@ -13,6 +13,7 @@ export interface BentoCardProps {
   label?: string;
   textAutoHide?: boolean;
   img?: string;
+  component?:React.ReactNode;
   disableAnimations?: boolean;
 }
 
@@ -45,9 +46,6 @@ const cardData: BentoCardProps[] = [
   },
   {
     id: 2,
-    title: "I'm very flexible with time zone communications",
-    description: "",
-    img: "",
     color: "#060010",
   },
   {
@@ -74,6 +72,8 @@ const cardData: BentoCardProps[] = [
     title: "Do you want to start a project together?",
     description: "",
     img: "",
+    color: "#020024"
+
   },
 ];
 
@@ -761,14 +761,14 @@ const MagicBento: React.FC<BentoProps> = ({
                   </div>
                   <div className="card__content flex flex-col relative text-white">
                     <h3
-                      className={`card__title font-normal text-base m-0 mb-1 ${
+                      className={`card__title font-semibold text-base m-0 mb-1 ${
                         textAutoHide ? "text-clamp-1" : ""
                       }`}
                     >
                       {card.title}
                     </h3>
                     <p
-                      className={`card__description text-xs leading-5 opacity-90 ${
+                      className={`card__description text-xs font-bold leading-5 opacity-90 ${
                         textAutoHide ? "text-clamp-2" : ""
                       }`}
                     >
