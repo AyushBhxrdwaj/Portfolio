@@ -5,7 +5,7 @@ const Grid = () => {
     <section id="about" className="relative w-full max-w-[92rem] mx-auto ">
       <MagicBento
         textAutoHide={true}
-        enableStars={true}
+        enableStars={false}
         enableSpotlight={false}
         enableBorderGlow={true}
         enableTilt={true}

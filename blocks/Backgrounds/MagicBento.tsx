@@ -5,6 +5,8 @@
 import React, { useRef, useEffect, useState, useCallback } from "react";
 import { gsap } from "gsap";
 import Lightning from "./Lightning";
+import Hyperspeed from "./Hyperspeed";
+import LetterGlitch from "./LetterGlitch";
 
 export interface BentoCardProps {
   id?: number;
@@ -16,6 +18,7 @@ export interface BentoCardProps {
   img?: string;
   component?: React.ReactNode;
   disableAnimations?: boolean;
+  textClass?: string;
 }
 
 export interface BentoProps {
@@ -43,12 +46,12 @@ const cardData: BentoCardProps[] = [
     title: "I design scalable Apps ",
     description: "",
     img: "/b1.svg",
-    color: "#1A202C",
+    color: "#060010",
   },
   {
     id: 2,
     color: "#060010",
-    component:<Lightning/>
+    component: <Lightning />,
   },
   {
     id: 3,
@@ -60,7 +63,9 @@ const cardData: BentoCardProps[] = [
     id: 4,
     title: "Tech enthusiast with a passion for development.",
     description: "",
+    component: <LetterGlitch />,
     img: "/grid.svg",
+    textClass: "text-pink-600",
   },
 
   {
@@ -74,7 +79,8 @@ const cardData: BentoCardProps[] = [
     title: "Do you want to start a project together?",
     description: "",
     img: "",
-    color: "#020024",
+    color: "#0000",
+    component: <Hyperspeed />,
   },
 ];
 
@@ -736,6 +742,7 @@ const MagicBento: React.FC<BentoProps> = ({
               "--glow-y": "50%",
               "--glow-intensity": "0",
               "--glow-radius": "200px",
+              ...card.style,
             } as React.CSSProperties;
 
             if (enableStars) {
@@ -768,7 +775,7 @@ const MagicBento: React.FC<BentoProps> = ({
                   </div>
                   <div className="card__content flex flex-col relative text-white z-10">
                     <h3
-                      className={`card__title font-semibold text-base m-0 mb-1 ${
+                      className={`card__title font-bold text-xl m-0 mb-1 ${
                         textAutoHide ? "text-clamp-1" : ""
                       }`}
                     >
@@ -795,7 +802,12 @@ const MagicBento: React.FC<BentoProps> = ({
                   // ... existing ref logic unchanged
                 }}
               >
-                {/* Add custom component as background if it exists */}
+                {card.img && (
+                  <div
+                    className="absolute inset-0 w-full  h-full bg-cover bg-center rounded-[20px] opacity-70 group-hover:opacity-30 transition-opacity"
+                    style={{ backgroundImage: `url(${card.img})` }}
+                  />
+                )}
                 {card.component && (
                   <div className="absolute inset-0 z-0 overflow-hidden">
                     {card.component}
@@ -806,14 +818,14 @@ const MagicBento: React.FC<BentoProps> = ({
                 </div>
                 <div className="card__content flex flex-col relative text-white z-10">
                   <h3
-                    className={`card__title font-normal text-base m-0 mb-1 ${
+                    className={`card__title font-bold  text-xl m-0 mb-1 ${
                       textAutoHide ? "text-clamp-1" : ""
-                    }`}
+                    } ${card.textClass ?? ""}`}
                   >
                     {card.title}
                   </h3>
                   <p
-                    className={`card__description text-xs leading-5 opacity-90 ${
+                    className={`card__description text-lg leading-5 opacity-90 ${
                       textAutoHide ? "text-clamp-2" : ""
                     }`}
                   >

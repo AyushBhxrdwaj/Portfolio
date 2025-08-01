@@ -12,8 +12,8 @@ const Hero = () => {
           raysOrigin="top-center"
           raysColor="#FF"
           raysSpeed={1}
-          lightSpread={1.5}
-          rayLength={1}
+          lightSpread={0.5}
+          rayLength={0.8}
           followMouse={true}
           mouseInfluence={0.1}
           noiseAmount={0.1}
@@ -50,7 +50,7 @@ const Hero = () => {
             showCursor={true}
             cursorCharacter="|"
           />
-          <p className="text-center mt-3 md:tracking-wider mb-4 md:text-lg lg:text-2xl text-lg text-gray-300 font-bold">
+          <p className="text-center mt-3 md:tracking-wider mb-4 md:text-lg lg:text-2xl text-lg bg-gradient-to-r from-zinc-400 via-gray-400 to-zinc-500 bg-clip-text text-transparent font-bold">
             Hi, I&apos;m Ayush — I Build on the Web
           </p>
           <InteractiveHoverButton className="text-sm font-semibold bg-gray-600">
