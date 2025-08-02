@@ -65,12 +65,13 @@ const cardData: BentoCardProps[] = [
     description: "",
     component: <LetterGlitch />,
     img: "/grid.svg",
-    textClass: "text-pink-600",
+    textClass: "text-",
+    color: "#808080",
   },
 
   {
     id: 5,
-    title: "Currently building a JS Animation library",
+    title: "Current5ly building a JS Animation library",
     description: "The Inside Scoop",
     img: "/b5.svg",
   },
@@ -775,7 +776,7 @@ const MagicBento: React.FC<BentoProps> = ({
                   </div>
                   <div className="card__content flex flex-col relative text-white z-10">
                     <h3
-                      className={`card__title font-bold text-xl m-0 mb-1 ${
+                      className={`card__title font-bold text-lg sm:text-xs md:text-sm m-0 mb-1 ${
                         textAutoHide ? "text-clamp-1" : ""
                       }`}
                     >
@@ -802,6 +803,52 @@ const MagicBento: React.FC<BentoProps> = ({
                   // ... existing ref logic unchanged
                 }}
               >
+                {index == 2 && (
+                  <div className="flex flex-wrap justify-center gap-3 mt-6 mb-2 px-2">
+                    {[
+                      {
+                        name: "React.js",
+                        icon: "⚛️",
+                        color: "from-[#61dbfb] to-[#2288f7]",
+                      },
+                      {
+                        name: "Next.js",
+                        icon: "⏭️",
+                        color: "from-[#111] to-[#000]",
+                      },
+                      {
+                        name: "Python",
+                        icon: "🐍",
+                        color: "from-[#306998] to-[#4B8BBE]",
+                      },
+                      {
+                        name: "TypeScript",
+                        icon: "🟦",
+                        color: "from-[#3178c6] to-[#235aa6]",
+                      },
+                    ].map((tech) => (
+                      <span
+                        key={tech.name}
+                        className={`
+        flex items-center gap-2 px-4 py-2
+        rounded-xl shadow
+        text-white font-semibold
+        bg-gradient-to-br ${tech.color}
+        backdrop-blur-md bg-opacity-80
+        hover:scale-105 hover:shadow-lg transition
+        border border-white/10
+        text-base
+      `}
+                        style={{
+                          textShadow: "0 2px 8px #0008",
+                        }}
+                      >
+                        <span className="text-xl">{tech.icon}</span>
+                        <span>{tech.name}</span>
+                      </span>
+                    ))}
+                  </div>
+                )}
                 {card.img && (
                   <div
                     className="absolute inset-0 w-full  h-full bg-cover bg-center rounded-[20px] opacity-70 group-hover:opacity-30 transition-opacity"
@@ -818,7 +865,7 @@ const MagicBento: React.FC<BentoProps> = ({
                 </div>
                 <div className="card__content flex flex-col relative text-white z-10">
                   <h3
-                    className={`card__title font-bold  text-xl m-0 mb-1 ${
+                    className={`card__title font-bold sm:text-xs md:text-lg  text-xl m-0 mb-1 ${
                       textAutoHide ? "text-clamp-1" : ""
                     } ${card.textClass ?? ""}`}
                   >
