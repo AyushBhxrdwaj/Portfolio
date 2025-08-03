@@ -19,6 +19,7 @@ export interface BentoCardProps {
   component?: React.ReactNode;
   disableAnimations?: boolean;
   textClass?: string;
+  customClass?:string
 }
 
 export interface BentoProps {
@@ -58,6 +59,7 @@ const cardData: BentoCardProps[] = [
     title: "My tech stack",
     description: "I constantly try to improve",
     img: "",
+    customClass:"w-[20px]"
   },
   {
     id: 4,
@@ -733,7 +735,7 @@ const MagicBento: React.FC<BentoProps> = ({
           {cardData.map((card, index) => {
             const baseClassName = `card flex flex-col justify-between relative aspect-[4/3] min-h-[200px] w-full max-w-full p-5 rounded-[20px] border border-solid font-light overflow-hidden transition-all duration-300 ease-in-out hover:-translate-y-0.5 hover:shadow-[0_8px_25px_rgba(0,0,0,0.15)] ${
               enableBorderGlow ? "card--border-glow" : ""
-            }`;
+            }${card.customClass??""}`;
 
             const cardStyle = {
               backgroundColor: card.color || "var(--background-dark)",
@@ -743,7 +745,6 @@ const MagicBento: React.FC<BentoProps> = ({
               "--glow-y": "50%",
               "--glow-intensity": "0",
               "--glow-radius": "200px",
-              ...card.style,
             } as React.CSSProperties;
 
             if (enableStars) {
@@ -804,49 +805,43 @@ const MagicBento: React.FC<BentoProps> = ({
                 }}
               >
                 {index == 2 && (
-                  <div className="flex flex-wrap justify-center gap-3 mt-6 mb-2 px-2">
-                    {[
-                      {
-                        name: "React.js",
-                        icon: "⚛️",
-                        color: "from-[#61dbfb] to-[#2288f7]",
-                      },
-                      {
-                        name: "Next.js",
-                        icon: "⏭️",
-                        color: "from-[#111] to-[#000]",
-                      },
-                      {
-                        name: "Python",
-                        icon: "🐍",
-                        color: "from-[#306998] to-[#4B8BBE]",
-                      },
-                      {
-                        name: "TypeScript",
-                        icon: "🟦",
-                        color: "from-[#3178c6] to-[#235aa6]",
-                      },
-                    ].map((tech) => (
-                      <span
-                        key={tech.name}
-                        className={`
-        flex items-center gap-2 px-4 py-2
-        rounded-xl shadow
-        text-white font-semibold
-        bg-gradient-to-br ${tech.color}
-        backdrop-blur-md bg-opacity-80
-        hover:scale-105 hover:shadow-lg transition
-        border border-white/10
-        text-base
-      `}
-                        style={{
-                          textShadow: "0 2px 8px #0008",
-                        }}
-                      >
-                        <span className="text-xl">{tech.icon}</span>
-                        <span>{tech.name}</span>
-                      </span>
-                    ))}
+                  <div className="flex gap-3 lg:gap-5 w-fit absolute -right-2 lg:-right-2">
+                    <div className="flex flex-col gap-3 lg:gap-8">
+                      {["React.js", "Next.js", "Python", "TypeScript","Express"].map(
+                        (item, index) => (
+                          <span
+                            className="py-3 w-30 lg:py-4 lg:px-3 px-3 text-lg lg:text-base opacity-50 lg:opacity-100 rounded-lg text-center bg-[#10132E]"
+                            key={index}
+                          >
+                            {item}
+                          </span>
+                        )
+                      )}
+                    </div>
+                    <div className="flex flex-col gap-3 lg:gap-8">
+                      {["Tailwind", "Prisma", "SQL", "MongoDb"].map(
+                        (item, index) => (
+                          <span
+                            className="py-3 w-30 lg:py-4 lg:px-3 px-3 text-lg lg:text-base opacity-50 lg:opacity-100 rounded-lg text-center bg-[#10132E]"
+                            key={index}
+                          >
+                            {item}
+                          </span>
+                        )
+                      )}
+                    </div>
+                    <div className="flex flex-col gap-3 lg:gap-8">
+                      {["Supabase", "Github", "Git", "GenAi","AI/ML"].map(
+                        (item, index) => (
+                          <span
+                            className="py-3 w-30 lg:py-4 lg:px-3 px-3 text-lg lg:text-base opacity-50 lg:opacity-100 rounded-lg text-center bg-[#10132E]"
+                            key={index}
+                          >
+                            {item}
+                          </span>
+                        )
+                      )}
+                    </div>
                   </div>
                 )}
                 {card.img && (
