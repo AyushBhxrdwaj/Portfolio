@@ -3,6 +3,8 @@ import TextTyper from "@/blocks/TextAnimations/TextType";
 import React from "react";
 import { InteractiveHoverButton } from "./ui/interactive-hover-button";
 import RippleGrid from "@/blocks/Backgrounds/RippleGrid";
+import WrapButton  from "./ui/wrap-button";
+import { Globe, PersonStanding } from "lucide-react";
 
 const Hero = () => {
   return (
@@ -53,9 +55,10 @@ const Hero = () => {
           <p className="text-center mt-3 md:tracking-wider mb-4 md:text-lg lg:text-2xl text-lg bg-gradient-to-r from-zinc-400 via-gray-400 to-zinc-500 bg-clip-text text-transparent font-bold">
             Hi, I&apos;m Ayush — I Build on the Web
           </p>
-          <InteractiveHoverButton className="text-sm font-semibold bg-gray-600">
-            Show my work
-          </InteractiveHoverButton>
+          <WrapButton className="mt-10" href="#">
+            <Globe className="animate-spin"/>
+            Get started
+          </WrapButton>
         </div>
       </div>
     </div>

@@ -7,6 +7,8 @@ import { gsap } from "gsap";
 import Lightning from "./Lightning";
 import Hyperspeed from "./Hyperspeed";
 import LetterGlitch from "./LetterGlitch";
+import AnimatedList from "../TextAnimations/AnimatedList";
+import TextType from "../TextAnimations/TextType";
 
 export interface BentoCardProps {
   id?: number;
@@ -19,7 +21,9 @@ export interface BentoCardProps {
   component?: React.ReactNode;
   disableAnimations?: boolean;
   textClass?: string;
-  customClass?:string
+  customClass?: string;
+  titleClass?: string;
+  descClass?: string;
 }
 
 export interface BentoProps {
@@ -48,6 +52,8 @@ const cardData: BentoCardProps[] = [
     description: "",
     img: "/b1.svg",
     color: "#060010",
+    textClass: "text-[#CFFADB]",
+    titleClass: "font-extrabold text-lg italic",
   },
   {
     id: 2,
@@ -59,21 +65,19 @@ const cardData: BentoCardProps[] = [
     title: "My tech stack",
     description: "I constantly try to improve",
     img: "",
-    customClass:"w-[20px]"
+    color: "#060010",
   },
   {
     id: 4,
     title: "Tech enthusiast with a passion for development.",
     description: "",
     component: <LetterGlitch />,
-    img: "/grid.svg",
-    textClass: "text-",
     color: "#808080",
   },
 
   {
     id: 5,
-    title: "Current5ly building a JS Animation library",
+    title: "Currently building a JS Animation library",
     description: "The Inside Scoop",
     img: "/b5.svg",
   },
@@ -84,6 +88,7 @@ const cardData: BentoCardProps[] = [
     img: "",
     color: "#0000",
     component: <Hyperspeed />,
+    textClass: "text-[#EDF2F4]",
   },
 ];
 
@@ -735,7 +740,7 @@ const MagicBento: React.FC<BentoProps> = ({
           {cardData.map((card, index) => {
             const baseClassName = `card flex flex-col justify-between relative aspect-[4/3] min-h-[200px] w-full max-w-full p-5 rounded-[20px] border border-solid font-light overflow-hidden transition-all duration-300 ease-in-out hover:-translate-y-0.5 hover:shadow-[0_8px_25px_rgba(0,0,0,0.15)] ${
               enableBorderGlow ? "card--border-glow" : ""
-            }${card.customClass??""}`;
+            }${card.customClass ?? ""}`;
 
             const cardStyle = {
               backgroundColor: card.color || "var(--background-dark)",
@@ -794,6 +799,16 @@ const MagicBento: React.FC<BentoProps> = ({
                 </ParticleCard>
               );
             }
+            const items = [
+              "Python",
+              "MongoDb",
+              "NextJs",
+              "Reactjs",
+              "TypeScript",
+              "AI/ML",
+              "Git",
+              "Github",
+            ];
 
             return (
               <div
@@ -801,52 +816,21 @@ const MagicBento: React.FC<BentoProps> = ({
                 className={baseClassName}
                 style={cardStyle}
                 ref={(el) => {
-                  // ... existing ref logic unchanged
+                  /* ... */
                 }}
               >
-                {index == 2 && (
-                  <div className="flex gap-3 lg:gap-5 w-fit absolute -right-2 lg:-right-2">
-                    <div className="flex flex-col gap-3 lg:gap-8">
-                      {["React.js", "Next.js", "Python", "TypeScript","Express"].map(
-                        (item, index) => (
-                          <span
-                            className="py-3 w-30 lg:py-4 lg:px-3 px-3 text-lg lg:text-base opacity-50 lg:opacity-100 rounded-lg text-center bg-[#10132E]"
-                            key={index}
-                          >
-                            {item}
-                          </span>
-                        )
-                      )}
-                    </div>
-                    <div className="flex flex-col gap-3 lg:gap-8">
-                      {["Tailwind", "Prisma", "SQL", "MongoDb"].map(
-                        (item, index) => (
-                          <span
-                            className="py-3 w-30 lg:py-4 lg:px-3 px-3 text-lg lg:text-base opacity-50 lg:opacity-100 rounded-lg text-center bg-[#10132E]"
-                            key={index}
-                          >
-                            {item}
-                          </span>
-                        )
-                      )}
-                    </div>
-                    <div className="flex flex-col gap-3 lg:gap-8">
-                      {["Supabase", "Github", "Git", "GenAi","AI/ML"].map(
-                        (item, index) => (
-                          <span
-                            className="py-3 w-30 lg:py-4 lg:px-3 px-3 text-lg lg:text-base opacity-50 lg:opacity-100 rounded-lg text-center bg-[#10132E]"
-                            key={index}
-                          >
-                            {item}
-                          </span>
-                        )
-                      )}
-                    </div>
-                  </div>
+                {index === 2 && (
+                  <AnimatedList
+                    className="font-bold text-lg"
+                    items={items}
+                    showGradients={true}
+                    enableArrowNavigation={true}
+                    displayScrollbar={false}
+                  />
                 )}
                 {card.img && (
                   <div
-                    className="absolute inset-0 w-full  h-full bg-cover bg-center rounded-[20px] opacity-70 group-hover:opacity-30 transition-opacity"
+                    className="absolute inset-0 w-full h-full bg-cover bg-center rounded-[20px] opacity-70 group-hover:opacity-30 transition-opacity"
                     style={{ backgroundImage: `url(${card.img})` }}
                   />
                 )}
@@ -859,17 +843,29 @@ const MagicBento: React.FC<BentoProps> = ({
                   <span className="card__label text-base">{card.label}</span>
                 </div>
                 <div className="card__content flex flex-col relative text-white z-10">
-                  <h3
-                    className={`card__title font-bold sm:text-xs md:text-lg  text-xl m-0 mb-1 ${
-                      textAutoHide ? "text-clamp-1" : ""
-                    } ${card.textClass ?? ""}`}
-                  >
-                    {card.title}
-                  </h3>
+                  {card.id === 4 ? (
+                    <TextType
+                      text={["Tech enthusiast with a passion for development."]}
+                      pauseDuration={100}
+                      className={` font-extrabold text-4xl m-0 mb-1 ${
+                        card.titleClass ?? ""
+                      }`}
+                    />
+                  ) : (
+                    <h3
+                      className={`card__title m-0 mb-1 ${
+                        textAutoHide ? "text-clamp-1" : ""
+                      } ${card.textClass ?? ""} ${
+                        card.titleClass ?? "font-bold text-xl"
+                      }`}
+                    >
+                      {card.title}
+                    </h3>
+                  )}
                   <p
-                    className={`card__description text-lg leading-5 opacity-90 ${
+                    className={`card__description opacity-90 ${
                       textAutoHide ? "text-clamp-2" : ""
-                    }`}
+                    } ${card.descClass ?? "text-lg font-normal"}`}
                   >
                     {card.description}
                   </p>
