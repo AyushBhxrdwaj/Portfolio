@@ -10,6 +10,8 @@
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.2.3",
+    "@types/canvas-confetti": "^1.9.0",
+    "canvas-confetti": "^1.9.3",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "framer-motion": "^12.23.12",
@@ -21,6 +23,7 @@
     "postprocessing": "^6.37.6",
     "react": "19.1.0",
     "react-dom": "19.1.0",
+    "react-lottie": "^1.2.10",
     "tailwind-merge": "^3.3.1",
     "three": "^0.167.1"
   },
@@ -30,6 +33,7 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@types/react-lottie": "^1.2.10",
     "eslint": "^9",
     "eslint-config-next": "15.4.3",
     "tailwindcss": "^4",

@@ -9,7 +9,10 @@ import Hyperspeed from "./Hyperspeed";
 import LetterGlitch from "./LetterGlitch";
 import AnimatedList from "../TextAnimations/AnimatedList";
 import TextType from "../TextAnimations/TextType";
-
+import Lottie from "react-lottie";
+import { ShimmerButton } from "@/components/ui/shimmer-button";
+import animationData from "@/data/confetti.json";
+import { Copy } from "lucide-react";
 export interface BentoCardProps {
   id?: number;
   color?: string;
@@ -52,7 +55,7 @@ const cardData: BentoCardProps[] = [
     description: "",
     img: "/b1.svg",
     color: "#060010",
-    textClass: "text-[#CFFADB]",
+    textClass: "text-gray-300",
     titleClass: "font-extrabold text-lg italic",
   },
   {
@@ -80,6 +83,7 @@ const cardData: BentoCardProps[] = [
     title: "Currently building a JS Animation library",
     description: "The Inside Scoop",
     img: "/b5.svg",
+    titleClass: "text-xl font-bold",
   },
   {
     id: 6,
@@ -89,6 +93,7 @@ const cardData: BentoCardProps[] = [
     color: "#0000",
     component: <Hyperspeed />,
     textClass: "text-[#EDF2F4]",
+    titleClass: "text-base font-bold",
   },
 ];
 
@@ -595,6 +600,12 @@ const MagicBento: React.FC<BentoProps> = ({
   const gridRef = useRef<HTMLDivElement>(null);
   const isMobile = useMobileDetection();
   const shouldDisableAnimations = disableAnimations || isMobile;
+  const [copied, setcopied] = useState(false);
+  const handleCopy = () => {
+    navigator.clipboard.writeText("ayush.ds321@gmail.com");
+    setcopied(true);
+    // setTimeout(() => setcopied(false), 1500);
+  };
 
   return (
     <>
@@ -799,6 +810,7 @@ const MagicBento: React.FC<BentoProps> = ({
                 </ParticleCard>
               );
             }
+
             const items = [
               "Python",
               "MongoDb",
@@ -839,6 +851,26 @@ const MagicBento: React.FC<BentoProps> = ({
                     {card.component}
                   </div>
                 )}
+                {card.id === 6 && (
+                  <div className="mt-5 relative ">
+                    <div className={`absolute -bottom-5 right-0`}>
+                      <Lottie
+                        options={{
+                          loop: copied,
+                          autoplay: copied,
+                          animationData: animationData,
+                          rendererSettings: {
+                            preserveAspectRatio: "xMidYMid slice",
+                          },
+                        }}
+                      />
+                    </div>
+                    <ShimmerButton className="text-white text-xs font-bold rounded-xl h-10" onClick={handleCopy}>
+                      <Copy className="h-4 mr-2"/>{copied?'Email copied':'Copy Email'}
+                    </ShimmerButton>
+                  </div>
+                )}
+
                 <div className="card__header flex justify-between gap-3 relative text-white z-10">
                   <span className="card__label text-base">{card.label}</span>
                 </div>
