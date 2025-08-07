@@ -1,6 +1,7 @@
 import GooeyNav from "@/blocks/Backgrounds/GooeyNav";
 import Grid from "@/components/Grid";
 import Hero from "@/components/Hero";
+import RecentProjects from "@/components/RecentProjects";
 import React from "react";
 
 const Home = () => {
@@ -24,6 +25,7 @@ const Home = () => {
           />
         <Hero />
         <Grid />
+        <RecentProjects/>
       </div>
     </main>
   );

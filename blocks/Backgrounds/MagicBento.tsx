@@ -4,7 +4,7 @@
 "use client";
 import React, { useRef, useEffect, useState, useCallback } from "react";
 import { gsap } from "gsap";
-import Lightning from "./Lightning";
+// import Lightning from "./Lightning";
 import Hyperspeed from "./Hyperspeed";
 import LetterGlitch from "./LetterGlitch";
 import AnimatedList from "../TextAnimations/AnimatedList";
@@ -13,6 +13,8 @@ import Lottie from "react-lottie";
 import { ShimmerButton } from "@/components/ui/shimmer-button";
 import animationData from "@/data/confetti.json";
 import { Copy } from "lucide-react";
+import TerminalBg from "./TerminalBg";
+// import { AnimatedBeamDemo } from "./BeamWire";
 export interface BentoCardProps {
   id?: number;
   color?: string;
@@ -61,7 +63,9 @@ const cardData: BentoCardProps[] = [
   {
     id: 2,
     color: "#060010",
-    component: <Lightning />,
+    component: <TerminalBg/>,
+    customClass:"flex flex-col items-center justify-center",
+    titleClass:"text-lg"
   },
   {
     id: 3,
