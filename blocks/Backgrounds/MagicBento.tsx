@@ -63,9 +63,9 @@ const cardData: BentoCardProps[] = [
   {
     id: 2,
     color: "#060010",
-    component: <TerminalBg/>,
-    customClass:"flex flex-col items-center justify-center",
-    titleClass:"text-lg"
+    component: <TerminalBg />,
+    customClass: "flex flex-col items-center justify-center",
+    titleClass: "text-lg",
   },
   {
     id: 3,
@@ -605,11 +605,44 @@ const MagicBento: React.FC<BentoProps> = ({
   const isMobile = useMobileDetection();
   const shouldDisableAnimations = disableAnimations || isMobile;
   const [copied, setcopied] = useState(false);
-  const handleCopy = () => {
-    navigator.clipboard.writeText("ayush.ds321@gmail.com");
+  const [confettiKey, setConfettiKey] = useState(0);
+  const copyTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  const handleCopy = useCallback(async () => {
+    const email = "ayush.ds321@gmail.com";
+    // Try modern clipboard API first
+    try {
+      await navigator.clipboard.writeText(email);
+    } catch (err) {
+      // Fallback for older browsers or denied permissions
+      try {
+        const textarea = document.createElement("textarea");
+        textarea.value = email;
+        textarea.style.position = "fixed";
+        textarea.style.left = "-9999px";
+        document.body.appendChild(textarea);
+        textarea.focus();
+        textarea.select();
+        document.execCommand("copy");
+        document.body.removeChild(textarea);
+      } catch {
+        // Give up silently; we still show UI feedback
+      }
+    }
+
+    // Trigger UI feedback + replay confetti
     setcopied(true);
-    // setTimeout(() => setcopied(false), 1500);
-  };
+    setConfettiKey((k) => k + 1);
+    if (copyTimeoutRef.current) clearTimeout(copyTimeoutRef.current);
+    copyTimeoutRef.current = setTimeout(() => setcopied(false), 1500);
+  }, []);
+
+  useEffect(
+    () => () => {
+      if (copyTimeoutRef.current) clearTimeout(copyTimeoutRef.current);
+    },
+    []
+  );
 
   return (
     <>
@@ -831,7 +864,7 @@ const MagicBento: React.FC<BentoProps> = ({
                 key={index}
                 className={baseClassName}
                 style={cardStyle}
-                ref={(el) => {
+                ref={() => {
                   /* ... */
                 }}
               >
@@ -857,20 +890,29 @@ const MagicBento: React.FC<BentoProps> = ({
                 )}
                 {card.id === 6 && (
                   <div className="mt-5 relative ">
-                    <div className={`absolute -bottom-5 right-0`}>
-                      <Lottie
-                        options={{
-                          loop: copied,
-                          autoplay: copied,
-                          animationData: animationData,
-                          rendererSettings: {
-                            preserveAspectRatio: "xMidYMid slice",
-                          },
-                        }}
-                      />
+                    <div className="absolute -bottom-5 right-0 pointer-events-none">
+                      {copied && (
+                        <Lottie
+                          key={confettiKey}
+                          options={{
+                            loop: false,
+                            autoplay: true,
+                            animationData: animationData,
+                            rendererSettings: {
+                              preserveAspectRatio: "xMidYMid slice",
+                            },
+                          }}
+                          height={120}
+                          width={120}
+                        />
+                      )}
                     </div>
-                    <ShimmerButton className="text-white text-xs font-bold rounded-xl h-10" onClick={handleCopy}>
-                      <Copy className="h-4 mr-2"/>{copied?'Email copied':'Copy Email'}
+                    <ShimmerButton
+                      className="text-white text-xs font-bold rounded-xl h-10"
+                      onClick={handleCopy}
+                    >
+                      <Copy className="h-4 mr-2" />
+                      {copied ? "Email copied" : "Copy Email"}
                     </ShimmerButton>
                   </div>
                 )}

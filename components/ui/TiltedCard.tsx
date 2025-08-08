@@ -1,7 +1,7 @@
 /*
 	Installed from https://reactbits.dev/ts/tailwind/
 */
-'use client'
+"use client";
 
 import type { SpringOptions } from "motion/react";
 import { useRef, useState } from "react";
@@ -132,7 +132,8 @@ export default function TiltedCard({
         />
 
         {displayOverlayContent && overlayContent && (
-          <motion.div className="absolute top-0 left-0 z-[2] will-change-transform [transform:translateZ(30px)]">
+          // Make overlay fill the entire card so children can be positioned at the bottom/center
+          <motion.div className="absolute inset-0 z-[2] will-change-transform [transform:translateZ(30px)]">
             {overlayContent}
           </motion.div>
         )}
