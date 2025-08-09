@@ -2,6 +2,7 @@ import GooeyNav from "@/blocks/Backgrounds/GooeyNav";
 import Grid from "@/components/Grid";
 import Hero from "@/components/Hero";
 import RecentProjects from "@/components/RecentProjects";
+import ProjectWording from "@/components/ProjectWording";
 import React from "react";
 
 const Home = () => {
@@ -9,7 +10,7 @@ const Home = () => {
     { label: "Home", href: "/" },
     { label: "About", href: "#About" },
     { label: "Projects", href: "#projects" },
-    { label: "Contact", href: "#contact" }
+    { label: "Contact", href: "#contact" },
   ];
   return (
     <main className=" flex justify-center items-center flex-col sm:px-10 overflow-hidden mx-auto ">
@@ -25,8 +26,9 @@ const Home = () => {
           colors={[1, 2, 3, 1, 2, 3, 1, 4]}
         />
         <Hero />
-        <Grid  />
+        <Grid />
         <RecentProjects />
+        <ProjectWording />
       </div>
     </main>
   );
