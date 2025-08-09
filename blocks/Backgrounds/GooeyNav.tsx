@@ -1,7 +1,7 @@
 /*
 	Installed from https://reactbits.dev/ts/tailwind/
 */
-"use client"
+"use client";
 
 import React, { useRef, useEffect, useState } from "react";
 
@@ -36,12 +36,15 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
   const filterRef = useRef<HTMLSpanElement>(null);
   const textRef = useRef<HTMLSpanElement>(null);
   const [activeIndex, setActiveIndex] = useState<number>(initialActiveIndex);
+  const [hidden, setHidden] = useState(false);
+  const lastScrollYRef = useRef(0);
+  const tickingRef = useRef(false);
 
   const noise = (n = 1) => n / 2 - Math.random() * n;
   const getXY = (
     distance: number,
     pointIndex: number,
-    totalPoints: number,
+    totalPoints: number
   ): [number, number] => {
     const angle =
       ((360 + noise(8)) / totalPoints) * pointIndex * (Math.PI / 180);
@@ -51,9 +54,9 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
     i: number,
     t: number,
     d: [number, number],
-    r: number,
+    r: number
   ) => {
-    let rotate = noise(r / 10);
+    const rotate = noise(r / 10);
     return {
       start: getXY(d[0], particleCount - i, particleCount),
       end: getXY(d[1] + noise(7), particleCount - i, particleCount),
@@ -114,9 +117,25 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
   };
   const handleClick = (
     e: React.MouseEvent<HTMLAnchorElement>,
-    index: number,
+    index: number
   ) => {
     const liEl = e.currentTarget;
+    const href = liEl.getAttribute("href") || "";
+
+    // Smooth scroll handling for in-page links
+    if (href === "/") {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } else if (href.startsWith("#")) {
+      e.preventDefault();
+      const id = href.slice(1);
+      if (id) {
+        const target = document.getElementById(id);
+        if (target) {
+          target.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      }
+    }
     if (activeIndex === index) return;
     setActiveIndex(index);
     updateEffectPosition(liEl);
@@ -135,7 +154,7 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
   };
   const handleKeyDown = (
     e: React.KeyboardEvent<HTMLAnchorElement>,
-    index: number,
+    index: number
   ) => {
     if (e.key === "Enter" || e.key === " ") {
       e.preventDefault();
@@ -145,7 +164,7 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
           {
             currentTarget: liEl,
           } as React.MouseEvent<HTMLAnchorElement>,
-          index,
+          index
         );
       }
     }
@@ -170,6 +189,29 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
     resizeObserver.observe(containerRef.current);
     return () => resizeObserver.disconnect();
   }, [activeIndex]);
+
+  // Hide on scroll down, show on scroll up
+  useEffect(() => {
+    const onScroll = () => {
+      const current = window.scrollY;
+      const delta = current - lastScrollYRef.current;
+      if (Math.abs(delta) < 5) return; // ignore tiny moves
+      if (tickingRef.current) return;
+      tickingRef.current = true;
+      requestAnimationFrame(() => {
+        const goingDown = delta > 0;
+        if (goingDown && current > 80) {
+          setHidden(true);
+        } else {
+          setHidden(false);
+        }
+        lastScrollYRef.current = current;
+        tickingRef.current = false;
+      });
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
     <>
@@ -203,7 +245,7 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
             position: absolute;
             inset: -75px;
             z-index: -2;
-            background: black;
+            background: transparent; /* was black: removed to avoid visible square behind nav */
           }
           .effect.filter::after {
             content: "";
@@ -312,9 +354,14 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
           }
         `}
       </style>
-      <div className="relative" ref={containerRef}>
+      <div
+        ref={containerRef}
+        className={`fixed top-4 left-1/2 -translate-x-1/2 z-[100] transition-transform duration-300 ease-out ${
+          hidden ? "-translate-y-32" : "translate-y-0"
+        } pointer-events-none inline-block`}
+      >
         <nav
-          className="flex relative"
+          className="flex relative pointer-events-auto rounded-full border border-white/10 bg-black/40 backdrop-blur-md px-3 py-2 shadow-[0_8px_24px_rgba(0,0,0,0.35)]"
           style={{ transform: "translate3d(0,0,0.01px)" }}
         >
           <ul

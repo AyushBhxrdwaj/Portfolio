@@ -1,10 +1,9 @@
 import LightRays from "@/blocks/Backgrounds/LightRays";
 import TextTyper from "@/blocks/TextAnimations/TextType";
 import React from "react";
-import { InteractiveHoverButton } from "./ui/interactive-hover-button";
 import RippleGrid from "@/blocks/Backgrounds/RippleGrid";
-import WrapButton  from "./ui/wrap-button";
-import { Globe, PersonStanding } from "lucide-react";
+import WrapButton from "./ui/wrap-button";
+import { Globe } from "lucide-react";
 
 const Hero = () => {
   return (
@@ -12,32 +11,39 @@ const Hero = () => {
       <div className="absolute inset-0">
         <LightRays
           raysOrigin="top-center"
-          raysColor="#FF"
-          raysSpeed={1}
-          lightSpread={0.5}
-          rayLength={0.8}
+          raysColor="#fff7a6"
+          raysSpeed={2.2}
+          lightSpread={0.25}
+          rayLength={1.2}
+          pulsating={true}
+          fadeDistance={1.2}
+          saturation={1.5}
           followMouse={true}
-          mouseInfluence={0.1}
-          noiseAmount={0.1}
-          distortion={0.05}
+          mouseInfluence={0.18}
+          noiseAmount={0.18}
+          distortion={0.12}
           className="custom-rays"
         />
       </div>
       <div className="absolute inset-0">
         <RippleGrid
-          enableRainbow={false}
+          enableRainbow={true}
           gridColor="#5227ff"
-          rippleIntensity={0.05}
-          gridSize={10}
-          gridThickness={15}
+          rippleIntensity={0.13}
+          gridSize={12}
+          gridThickness={13}
+          fadeDistance={1.2}
+          vignetteStrength={1.2}
+          glowIntensity={0.22}
           mouseInteraction={true}
-          mouseInteractionRadius={1.2}
-          opacity={0.8}
+          mouseInteractionRadius={1.5}
+          opacity={1}
+          timeScale={0.6}
         />
       </div>
       <div className="flex justify-center relative my-20 z-10">
         <div className="max-w-[89vw] md:max-w-2xl lg:max-w-[60vw] flex flex-col items-center justify-center">
-          <h1 className="uppercase tracking-widest text-sm font-bold text-center text-yellow-200 max-w-80">
+          <h1 className="uppercase tracking-widest text-lg mt-5 font-semibold text-center text-violet-300 max-w-80">
             Web Developer, Problem Solver, Detail-Obsessed
           </h1>
           <TextTyper
@@ -56,8 +62,8 @@ const Hero = () => {
             Hi, I&apos;m Ayush — I Build on the Web
           </p>
           <WrapButton className="mt-10" href="#">
-            <Globe className="animate-spin"/>
-            Get started
+            <Globe className="animate-spin" />
+            Download my Resume
           </WrapButton>
         </div>
       </div>

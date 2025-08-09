@@ -862,6 +862,7 @@ const MagicBento: React.FC<BentoProps> = ({
             return (
               <div
                 key={index}
+                id="About"
                 className={baseClassName}
                 style={cardStyle}
                 ref={() => {

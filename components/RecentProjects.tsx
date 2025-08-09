@@ -3,14 +3,37 @@ import React from "react";
 import Image from "next/image";
 import TiltedCard from "./ui/TiltedCard";
 import { InteractiveHoverButton } from "./ui/interactive-hover-button";
+import ScrollFloat from "@/blocks/TextAnimations/ScrollFloat";
 
 const RecentProjects = () => {
   return (
-    <div className="py-20 text-center">
-      <h1 className="text-7xl font-bold">
-        A small selection of <br />{" "}
-        <span className="text-purple-600 mt-2">Recent projects</span>
-      </h1>
+    <div id="projects" className="py-20 text-center scroll-mt-28">
+      <div className="flex flex-col items-center">
+        <ScrollFloat
+          containerClassName="my-0 text-center"
+          textClassName="text-7xl md:text-7xl font-bold"
+          animationDuration={1}
+          ease="back.inOut(2)"
+          scrollStart="top bottom"
+          scrollEnd="bottom top+=20%"
+          stagger={0.03}
+          scrub={0.6}
+        >
+          A small selection of
+        </ScrollFloat>
+        <ScrollFloat
+          containerClassName="my-0 text-center -mt-1"
+          textClassName="text-7xl md:text-7xl font-bold text-pink-600"
+          animationDuration={1}
+          ease="back.inOut(2)"
+          scrollStart="top bottom"
+          scrollEnd="bottom top+=20%"
+          stagger={0.03}
+          scrub={0.6}
+        >
+          Recent projects
+        </ScrollFloat>
+      </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mt-16 px-4 max-w-7xl mx-auto">
         {projects.map(({ title, id, des, img, iconLists, link }) => (
           <div key={id} className="flex items-center justify-center">
