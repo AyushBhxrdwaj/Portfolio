@@ -229,17 +229,56 @@
 /* Ensure marquee keyframes are available globally (outside @theme) */
 @keyframes marquee-horizontal-slow {
   0% {
-    transform: translateX(0);
+    transform: translate3d(0, 0, 0);
   }
   100% {
-    transform: translateX(-50%);
+    transform: translate3d(calc(-50% - var(--marquee-seam-fix, 0.2px)), 0, 0);
   }
 }
 @keyframes marquee-horizontal-slow-reverse {
   0% {
-    transform: translateX(-50%);
+    transform: translate3d(calc(-50% + var(--marquee-seam-fix, 0.2px)), 0, 0);
   }
   100% {
-    transform: translateX(0);
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+/* Triple-tiling marquee to avoid fractional seam issues */
+@keyframes marquee-horizontal-3 {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(
+      calc(-33.333333% - var(--marquee-seam-fix, 0.2px)),
+      0,
+      0
+    );
+  }
+}
+@keyframes marquee-horizontal-3-reverse {
+  0% {
+    transform: translate3d(
+      calc(-33.333333% + var(--marquee-seam-fix, 0.2px)),
+      0,
+      0
+    );
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+/* Responsive marquee durations for smoother motion on small screens */
+:root {
+  --marquee-duration-1: 30s;
+  --marquee-duration-2: 36s;
+  --marquee-seam-fix: 0.2px;
+}
+@media (max-width: 640px) {
+  :root {
+    --marquee-duration-1: 40s;
+    --marquee-duration-2: 46s;
   }
 }

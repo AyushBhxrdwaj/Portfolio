@@ -39,6 +39,7 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
   const [hidden, setHidden] = useState(false);
   const lastScrollYRef = useRef(0);
   const tickingRef = useRef(false);
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
 
   const noise = (n = 1) => n / 2 - Math.random() * n;
   const getXY = (
@@ -148,7 +149,8 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
       void textRef.current.offsetWidth;
       textRef.current.classList.add("active");
     }
-    if (filterRef.current) {
+    // Skip heavy particle effect on small screens for performance
+    if (filterRef.current && !isSmallScreen) {
       makeParticles(filterRef.current);
     }
   };
@@ -192,6 +194,19 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
 
   // Hide on scroll down, show on scroll up
   useEffect(() => {
+    // Track small screen status for responsive behavior
+    const mq = window.matchMedia("(max-width: 640px)");
+    const onChange = (e: MediaQueryListEvent | MediaQueryList) => {
+      setIsSmallScreen(
+        "matches" in e ? e.matches : (e as MediaQueryList).matches
+      );
+    };
+    onChange(mq);
+    mq.addEventListener?.(
+      "change",
+      onChange as (e: MediaQueryListEvent) => void
+    );
+    // Hide on scroll down, show on scroll up
     const onScroll = () => {
       const current = window.scrollY;
       const delta = current - lastScrollYRef.current;
@@ -210,7 +225,13 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
       });
     };
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      mq.removeEventListener?.(
+        "change",
+        onChange as (e: MediaQueryListEvent) => void
+      );
+    };
   }, []);
 
   return (
@@ -221,17 +242,21 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
           :root {
             --linear-ease: linear(0, 0.068, 0.19 2.7%, 0.804 8.1%, 1.037, 1.199 13.2%, 1.245, 1.27 15.8%, 1.274, 1.272 17.4%, 1.249 19.1%, 0.996 28%, 0.949, 0.928 33.3%, 0.926, 0.933 36.8%, 1.001 45.6%, 1.013, 1.019 50.8%, 1.018 54.4%, 1 63.1%, 0.995 68%, 1.001 85%, 1);
           }
+          /* Hide scrollbar for the nav list on mobile */
+          .gooey-scroll::-webkit-scrollbar { display: none; }
+          .gooey-scroll { -ms-overflow-style: none; scrollbar-width: none; }
           .effect {
             position: absolute;
             opacity: 1;
             pointer-events: none;
             display: grid;
             place-items: center;
-            z-index: 1;
+            z-index: 10; /* ensure effects sit above nav content */
           }
           .effect.text {
             color: white;
             transition: color 0.3s ease;
+            z-index: 11;
           }
           .effect.text.active {
             color: black;
@@ -337,6 +362,10 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
             color: black;
             text-shadow: none;
           }
+          /* On desktop, hide anchor text when active to avoid double text; overlay text will be shown above */
+          @media (min-width: 641px) {
+            li.active > a { color: transparent !important; text-shadow: none !important; }
+          }
           li.active::after {
             opacity: 1;
             transform: scale(1);
@@ -356,17 +385,17 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
       </style>
       <div
         ref={containerRef}
-        className={`fixed top-4 left-1/2 -translate-x-1/2 z-[100] transition-transform duration-300 ease-out ${
+        className={`fixed top-3 sm:top-4 left-1/2 -translate-x-1/2 z-[100] transition-transform duration-300 ease-out ${
           hidden ? "-translate-y-32" : "translate-y-0"
         } pointer-events-none inline-block`}
       >
         <nav
-          className="flex relative pointer-events-auto rounded-full border border-white/10 bg-black/40 backdrop-blur-md px-3 py-2 shadow-[0_8px_24px_rgba(0,0,0,0.35)]"
+          className="flex relative pointer-events-auto rounded-full border border-white/10 bg-black/40 backdrop-blur-md px-2 py-1 sm:px-3 sm:py-2 shadow-[0_8px_24px_rgba(0,0,0,0.35)] max-w-[calc(100vw-1rem)]"
           style={{ transform: "translate3d(0,0,0.01px)" }}
         >
           <ul
             ref={navRef}
-            className="flex gap-8 list-none p-0 px-4 m-0 relative z-[3]"
+            className="gooey-scroll flex gap-4 sm:gap-8 list-none p-0 px-2 sm:px-4 m-0 relative z-[3] whitespace-nowrap overflow-x-auto"
             style={{
               color: "white",
               textShadow: "0 1px 1px hsl(205deg 30% 10% / 0.2)",
@@ -383,7 +412,7 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
                   href={item.href}
                   onClick={(e) => handleClick(e, index)}
                   onKeyDown={(e) => handleKeyDown(e, index)}
-                  className="outline-none py-[0.6em] px-[1em] inline-block"
+                  className="outline-none text-sm sm:text-base py-2 sm:py-[0.6em] px-3 sm:px-[1em] inline-block"
                 >
                   {item.label}
                 </a>
@@ -391,8 +420,8 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
             ))}
           </ul>
         </nav>
-        <span className="effect filter" ref={filterRef} />
-        <span className="effect text" ref={textRef} />
+        <span className="effect filter hidden sm:block" ref={filterRef} />
+        <span className="effect text hidden sm:grid" ref={textRef} />
       </div>
     </>
   );
