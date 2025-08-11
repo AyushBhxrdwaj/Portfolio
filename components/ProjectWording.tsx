@@ -34,7 +34,7 @@ const ProjectWording = () => {
       <div className="text-center">
         <ScrollFloat
           containerClassName="my-0 text-center"
-          textClassName="text-4xl sm:text-6xl md:text-7xl font-bold text-blue-700"
+          textClassName="text-4xl sm:text-6xl md:text-7xl font-bold text-purple-400"
           animationDuration={1}
           ease="back.inOut(2)"
           scrollStart="top bottom"

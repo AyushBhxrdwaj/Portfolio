@@ -55,7 +55,8 @@ const RecentProjects = () => {
                 <div className="flex h-full w-full flex-col justify-between">
                   {/* Title at top */}
                   <div className="px-6 pt-6 mt-5">
-                    <h3 className="text-lg font-bold text-white text-center bg-black/30 backdrop-blur-sm rounded-full py-2 px-4 border border-white/10 inline-block mx-auto">
+                    <h3 className="relative inline-flex items-center gap-2 text-[13px] sm:text-sm md:text-base font-semibold md:font-bold leading-tight text-white text-center px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-xl bg-black/70 backdrop-blur-md backdrop-saturate-150 ring-1 ring-white/20 shadow-[0_8px_24px_rgba(0,0,0,0.35)] mx-auto">
+                      <span className="hidden sm:inline-block w-1.5 h-1.5 rounded-full bg-pink-500 shadow-[0_0_12px_rgba(236,72,153,0.8)]" />
                       {title}
                     </h3>
                   </div>

@@ -4,6 +4,7 @@ import Hero from "@/components/Hero";
 import RecentProjects from "@/components/RecentProjects";
 import ProjectWording from "@/components/ProjectWording";
 import React from "react";
+import Roles from "@/components/Roles";
 
 const Home = () => {
   const items = [
@@ -29,6 +30,7 @@ const Home = () => {
         <Grid />
         <RecentProjects />
         <ProjectWording />
+        <Roles/>
       </div>
     </main>
   );
