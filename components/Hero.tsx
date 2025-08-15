@@ -89,7 +89,7 @@ const Hero = () => {
             <span>—</span>
             <Highlighter
               action="highlight"
-              color="#a855f7"
+              color="#9b111e"
               strokeWidth={2}
               animationDuration={800}
               iterations={2}
@@ -100,12 +100,20 @@ const Hero = () => {
           </div>
           <div className="relative mt-10">
             <RainbowButton
+              asChild
               className="px-8 py-4 rounded-full text-base font-semibold hover:scale-105 transform transition-all duration-300 bg-gray-900 text-white"
               size="lg"
               variant="outline"
             >
-              <Globe className="animate-spin mr-2 text-cyan-400" size={20} />
-              <span className="font-bold">Download my Resume</span>
+              <a
+                href="/resume.pdf"
+                download="Ayush_Resume.pdf"
+                aria-label="Download my resume (PDF)"
+                className="inline-flex items-center"
+              >
+                <Globe className="animate-spin mr-2 text-cyan-500" size={20} />
+                <span className="font-bold">Download my Resume</span>
+              </a>
             </RainbowButton>
           </div>
         </div>

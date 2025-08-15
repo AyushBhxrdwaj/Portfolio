@@ -13,7 +13,7 @@ export const projects = [
     title: "X Agent-An AI MCP Agent",
     des: "A Node.js agent demonstrating the power of combining Generative AI for content creation with the Model Context Protocol (MCP) for reliable tool execution. This project provides an interactive CLI that can automatically compose and post tweets on twitter.",
     img: "/p2.png",
-    iconLists: ["/next.svg", "/tail.svg", "/ts.svg", "/stream.svg", "/c.svg"],
+    iconLists: ["/node.svg", "/tail.svg", "/stream.svg","LLM"],
     link: "https://github.com/AyushBhxrdwaj/X_agent",
   },
   {
@@ -31,6 +31,7 @@ export const projects = [
     img: "/p4.png",
     iconLists: ["/next.svg", "/tail.svg", "/ts.svg", "/three.svg", "/gsap.svg"],
     link: "https://supercell-redesigned.pages.dev/",
+    source: "https://github.com/AyushBhxrdwaj/supercell_redesigned"
   },
 ];
 

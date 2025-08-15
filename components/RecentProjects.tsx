@@ -1,9 +1,19 @@
 import { projects } from "@/data";
 import React from "react";
 import Image from "next/image";
-import TiltedCard from "./ui/TiltedCard";
-import { InteractiveHoverButton } from "./ui/interactive-hover-button";
 import ScrollFloat from "@/blocks/TextAnimations/ScrollFloat";
+import { Github, Globe } from "lucide-react";
+
+type Project = {
+  id: number;
+  title: string;
+  des: string;
+  img: string;
+  iconLists: string[];
+  link: string;
+  website?: string;
+  source?: string;
+};
 
 const RecentProjects = () => {
   return (
@@ -34,74 +44,147 @@ const RecentProjects = () => {
           Recent projects
         </ScrollFloat>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-12 mt-10 sm:mt-16 px-3 sm:px-4 max-w-7xl mx-auto">
-        {projects.map(({ title, id, des, img, iconLists, link }) => (
-          <div key={id} className="flex items-center justify-center">
-            <TiltedCard
-              imageSrc={img}
-              altText="Project Image"
-              captionText={des}
-              containerHeight="clamp(360px, 55vw, 600px)"
-              containerWidth="clamp(300px, 85vw, 550px)"
-              imageHeight="clamp(360px, 55vw, 600px)"
-              imageWidth="clamp(300px, 85vw, 550px)"
-              imageFit={id === 1 ? "contain" : "cover"}
-              rotateAmplitude={12}
-              scaleOnHover={1.1}
-              showMobileWarning={false}
-              showTooltip={true}
-              displayOverlayContent={true}
-              overlayContent={
-                <div className="flex h-full w-full flex-col justify-between">
-                  {/* Title at top */}
-                  <div className="px-6 pt-6 mt-5">
-                    <h3 className="relative inline-flex items-center gap-2 text-[13px] sm:text-sm md:text-base font-semibold md:font-bold leading-tight text-white text-center px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-xl bg-black/70 backdrop-blur-md backdrop-saturate-150 ring-1 ring-white/20 shadow-[0_8px_24px_rgba(0,0,0,0.35)] mx-auto">
-                      <span className="hidden sm:inline-block w-1.5 h-1.5 rounded-full bg-pink-500 shadow-[0_0_12px_rgba(236,72,153,0.8)]" />
-                      {title}
-                    </h3>
-                  </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 mt-10 sm:mt-16 px-3 sm:px-4 max-w-4xl mx-auto">
+        {projects.map((p) => {
+          const project = p as Project;
+          const { title, id, des, img, iconLists, link } = project;
+          const isGithub =
+            typeof link === "string" && link.includes("github.com");
+          const website = project.website ?? (!isGithub ? link : undefined);
+          const source = project.source ?? (isGithub ? link : undefined);
 
-                  {/* Bottom actions */}
-                  <div className="px-6 pb-6 flex flex-col items-center gap-3">
-                    <a
-                      href={link}
-                      target="_blank"
-                      className="w-full flex justify-center"
-                    >
-                      <InteractiveHoverButton className="bg-black hover:bg-purple-800 px-8 py-3 text-sm font-semibold">
-                        Check out the Project
-                      </InteractiveHoverButton>
-                    </a>
+          const labelFromIcon = (src: string) => {
+            if (!src) return null;
+            if (src.includes("next")) return "Next.js";
+            if (src.includes("tail")) return "TailwindCSS";
+            if (src.includes("ts")) return "Typescript";
+            if (src.includes("three")) return "Three.js";
+            if (src.includes("gsap")) return "GSAP";
+            if (src.includes("fm")) return "Framer Motion";
+            if (src.includes("re.svg")) return "React";
+            if (src.includes("stream")) return "MCP/Streams";
+            if (src.includes("c.svg")) return "Clerk";
+            if (src.includes("node")) return "Node.js";
+            if (src.includes("LLM")) return "LLM";
+            return null;
+          };
 
-                    {/* Tech Stack Section */}
-                    <div className="flex items-center justify-center">
-                      <div className="flex items-center gap-1">
-                        {iconLists.map((icon, index) => (
-                          <div
-                            key={index}
-                            className="border border-white/[0.3] rounded-full bg-black/80 backdrop-blur-sm lg:w-9 lg:h-9 w-7 h-7 flex justify-center items-center hover:scale-110 transition-all duration-200"
-                            style={{
-                              transform: `translateX(-${3 * index}px)`,
-                              zIndex: iconLists.length - index,
-                            }}
-                          >
-                            <Image
-                              src={icon}
-                              alt="tech icon"
-                              width={20}
-                              height={20}
-                              className="object-contain"
-                            />
-                          </div>
-                        ))}
-                      </div>
-                    </div>
+          return (
+            <div key={id} className="flex">
+              <div className="group w-full overflow-hidden rounded-xl bg-black shadow-[0_4px_24px_rgba(0,0,0,0.35)] transition-transform duration-300 ease-in-out hover:scale-105">
+                {/* Large image section */}
+                <div className="relative w-full aspect-[5/4] p-4">
+                  <div className="relative w-full h-full rounded-lg overflow-hidden">
+                    {id === 4 ? (
+                      <video
+                        src="/vid4.mp4"
+                        autoPlay
+                        loop
+                        muted
+                        playsInline
+                        className="w-full h-full object-cover"
+                      />
+                    ) : id == 3 ? (
+                      <video
+                        src="/vid3.mp4"
+                        autoPlay
+                        loop
+                        muted
+                        playsInline
+                        className="w-full h-full object-cover"
+                      />
+                    ) : id == 1 ? (
+                      <video
+                        src="/vid1.mp4"
+                        autoPlay
+                        loop
+                        muted
+                        playsInline
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <Image
+                        src={img}
+                        alt={title}
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 100vw, 50vw"
+                        priority={id === 1}
+                      />
+                    )}
                   </div>
                 </div>
-              }
-            />
-          </div>
-        ))}
+
+                {/* Dark content section */}
+                <div className="bg-black p-4">
+                  <h3 className="text-lg font-bold text-white mb-1">{title}</h3>
+                  <p className="text-xs text-gray-400 mb-2">
+                    {id === 1
+                      ? "Jan 2024 - Feb 2024"
+                      : id === 2
+                      ? "June 2023 - Present"
+                      : id === 3
+                      ? "March 2024"
+                      : "Dec 2023"}
+                  </p>
+                  {des && (
+                    <p className="text-xs leading-relaxed text-gray-300 mb-3 line-clamp-3">
+                      {des}
+                    </p>
+                  )}
+
+                  {/* Tech badges */}
+                  {iconLists?.length ? (
+                    <div className="mb-3 flex flex-wrap gap-1">
+                      {iconLists.map((icon: string, idx: number) => {
+                        const label = labelFromIcon(icon);
+                        return label ? (
+                          <span
+                            key={idx}
+                            className="inline-block rounded bg-gray-800 px-2 py-0.5 text-xs font-medium text-gray-300"
+                          >
+                            {label}
+                          </span>
+                        ) : null;
+                      })}
+                    </div>
+                  ) : null}
+
+                  {/* Buttons */}
+                  <div className="flex items-center gap-2">
+                    {/* Source button for all cards */}
+                    {source && (
+                      <a
+                        href={source}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-medium text-white bg-black border border-gray-500 hover:border-gray-400 transition"
+                        aria-label={`View source code for ${title}`}
+                      >
+                        <Github size={12} />
+                        Source
+                      </a>
+                    )}
+
+                    {/* Website button only for card 4 */}
+                    {id === 4 && website && (
+                      <a
+                        href={website}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="inline-flex items-center gap-1.5 rounded-full bg-white px-3 py-1.5 text-xs font-medium text-black hover:bg-gray-100 transition"
+                        aria-label={`Open website for ${title}`}
+                      >
+                        <Globe size={12} />
+                        Website
+                      </a>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+          );
+        })}
       </div>
     </div>
   );

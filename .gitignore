@@ -12,6 +12,7 @@
 
 # testing
 /coverage
+/resume.pdf
 
 # next.js
 /.next/
