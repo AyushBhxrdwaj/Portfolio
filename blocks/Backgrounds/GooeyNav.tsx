@@ -249,7 +249,6 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
             position: absolute;
             opacity: 1;
             pointer-events: none;
-            display: grid;
             place-items: center;
             z-index: 10; /* ensure effects sit above nav content */
           }

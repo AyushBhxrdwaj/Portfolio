@@ -5,6 +5,7 @@ import RecentProjects from "@/components/RecentProjects";
 import ProjectWording from "@/components/ProjectWording";
 import React from "react";
 import Roles from "@/components/Roles";
+import Myapproach from "@/components/Myapproach";
 
 const Home = () => {
   const items = [
@@ -30,7 +31,8 @@ const Home = () => {
         <Grid />
         <RecentProjects />
         <ProjectWording />
-        <Roles/>
+        <Roles />
+        <Myapproach />
       </div>
     </main>
   );
