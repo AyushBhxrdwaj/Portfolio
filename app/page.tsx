@@ -1,3 +1,4 @@
+"use client";
 import GooeyNav from "@/blocks/Backgrounds/GooeyNav";
 import Grid from "@/components/Grid";
 import Hero from "@/components/Hero";
@@ -6,6 +7,8 @@ import ProjectWording from "@/components/ProjectWording";
 import React from "react";
 import Roles from "@/components/Roles";
 import Myapproach from "@/components/Myapproach";
+import EndPage from "@/components/EndPage";
+import GreetingsLoader from "@/components/GreetingsLoader";
 
 const Home = () => {
   const items = [
@@ -14,8 +17,29 @@ const Home = () => {
     { label: "Projects", href: "#projects" },
     { label: "Contact", href: "#contact" },
   ];
+  const [bootDone, setBootDone] = React.useState(false);
   return (
     <main className=" flex justify-center items-center flex-col sm:px-10 overflow-hidden mx-auto ">
+      {!bootDone && (
+        <GreetingsLoader
+          showForMs={2800}
+          stepMs={500}
+          onFinish={() => setBootDone(true)}
+          watermark="AYUSH"
+          greetings={[
+            "Hello",
+            "ਸਤਿ ਸ੍ਰੀ ਅਕਾਲ ਜੀ",
+            "नमस्ते",
+            "こんにちは",
+            "안녕하세요",
+            "مرحبا",
+            "Olá",
+            "Bonjour",
+            "Hallo",
+          ]}
+          useFramer={false}
+        />
+      )}
       <div className="bg-black/30 w-screen max-w-8xl">
         <GooeyNav
           items={items}
@@ -33,6 +57,7 @@ const Home = () => {
         <ProjectWording />
         <Roles />
         <Myapproach />
+        <EndPage />
       </div>
     </main>
   );

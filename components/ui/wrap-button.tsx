@@ -1,13 +1,13 @@
-import React from "react"
-import Link from "next/link"
-import { ArrowRight, Globe } from "lucide-react"
+import React from "react";
+import Link from "next/link";
+import { ArrowRight, Globe } from "lucide-react";
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 
 interface WrapButtonProps {
-  className?: string
-  children: React.ReactNode
-  href?: string
+  className?: string;
+  children: React.ReactNode;
+  href?: string;
 }
 
 const WrapButton: React.FC<WrapButtonProps> = ({
@@ -46,7 +46,7 @@ const WrapButton: React.FC<WrapButtonProps> = ({
           )}
         >
           <div className="border border-[#3B3A3A] bg-[#fe7500]  h-[43px] rounded-full flex items-center justify-center text-white">
-            <Globe className="mx-2 animate-spin " />
+            <Globe className="mx-2" />
             <p className="font-medium tracking-tight mr-3">
               {children ? children : "Get Started"}
             </p>
@@ -60,7 +60,7 @@ const WrapButton: React.FC<WrapButtonProps> = ({
         </div>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default WrapButton
+export default WrapButton;

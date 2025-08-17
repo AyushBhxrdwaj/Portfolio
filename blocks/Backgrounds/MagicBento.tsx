@@ -851,12 +851,21 @@ const MagicBento: React.FC<BentoProps> = ({
             const items = [
               "Python",
               "MongoDb",
-              "NextJs",
-              "Reactjs",
+              "Next.Js",
+              "Node.Js",
+              "React.Js",
+              
               "TypeScript",
               "AI/ML",
               "Git",
               "Github",
+              "Supabase",
+              "Prisma",
+              "Loveable",
+              "ChatGPT",
+              "TailwindCSS",
+              "Figma",
+              
             ];
 
             return (

@@ -5,8 +5,85 @@ import RippleGrid from "@/blocks/Backgrounds/RippleGrid";
 import { RainbowButton } from "./ui/rainbow-button";
 import { Globe } from "lucide-react";
 import { Highlighter } from "@/blocks/TextAnimations/highlighter";
+import { Marquee } from "./marquee";
+import Image from "next/image";
 
 const Hero = () => {
+  const techStack = [
+    {
+      src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
+      alt: "React",
+      glow: "group-hover:drop-shadow-[0_0_8px_rgba(97,218,251,0.6)]",
+    },
+    {
+      src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg",
+      alt: "Next.js",
+      invert: true,
+      glow: "group-hover:drop-shadow-[0_0_8px_rgba(0,0,0,0.6)] dark:group-hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.6)]",
+    },
+    {
+      src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg",
+      alt: "JavaScript",
+      glow: "group-hover:drop-shadow-[0_0_8px_rgba(247,223,30,0.6)]",
+    },
+    {
+      src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg",
+      alt: "TypeScript",
+      glow: "group-hover:drop-shadow-[0_0_8px_rgba(49,120,198,0.6)]",
+    },
+    {
+      src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg",
+      alt: "Java",
+      glow: "group-hover:drop-shadow-[0_0_8px_rgba(244,67,54,0.6)]",
+    },
+    {
+      src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original.svg",
+      alt: "Spring Boot",
+      glow: "group-hover:drop-shadow-[0_0_8px_rgba(109,179,63,0.6)]",
+    },
+    {
+      src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg",
+      alt: "Python",
+      glow: "group-hover:drop-shadow-[0_0_8px_rgba(75,139,190,0.6)]",
+    },
+    {
+      src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flask/flask-original.svg",
+      alt: "Flask",
+      invert: true,
+      glow: "group-hover:drop-shadow-[0_0_8px_rgba(0,0,0,0.6)] dark:group-hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.6)]",
+    },
+    {
+      src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg",
+      alt: "Node.js",
+      glow: "group-hover:drop-shadow-[0_0_8px_rgba(140,200,75,0.6)]",
+    },
+    {
+      src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg",
+      alt: "MongoDB",
+      glow: "group-hover:drop-shadow-[0_0_8px_rgba(77,182,172,0.6)]",
+    },
+    {
+      src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg",
+      alt: "PostgreSQL",
+      glow: "group-hover:drop-shadow-[0_0_8px_rgba(51,103,145,0.6)]",
+    },
+    {
+      src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/supabase/supabase-original.svg",
+      alt: "Supabase",
+      glow: "group-hover:drop-shadow-[0_0_8px_rgba(62,207,142,0.6)]",
+    },
+    {
+      src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg",
+      alt: "Docker",
+      glow: "group-hover:drop-shadow-[0_0_8px_rgba(13,183,232,0.6)]",
+    },
+    {
+      src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg",
+      alt: "Git",
+      glow: "group-hover:drop-shadow-[0_0_8px_rgba(240,80,50,0.6)]",
+    },
+  ];
+
   return (
     <div className="relative w-full h-screen overflow-hidden bg-black">
       <div className="absolute inset-0">
@@ -98,6 +175,39 @@ const Hero = () => {
               I Build on the Web
             </Highlighter>
           </div>
+          {/* Tech Marquee */}
+          <div className="w-full mt-6">
+            <Marquee
+              pauseOnHover
+              className="[--duration:40s] [--gap:1.25rem] [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]"
+            >
+              {techStack.map((t) => (
+                <div
+                  key={t.alt}
+                  className="group/icon relative h-14 w-14 sm:h-16 sm:w-16 flex items-center justify-center"
+                >
+                  <Image
+                    src={t.src}
+                    alt={t.alt}
+                    title={t.alt}
+                    width={40}
+                    height={40}
+                    loading="lazy"
+                    draggable={false}
+                    className={[
+                      "h-8 w-8 sm:h-10 sm:w-10 opacity-90 transition-transform duration-300 ease-out",
+                      "hover:scale-110",
+                      t.glow ?? "",
+                      t.invert ? "invert" : "",
+                    ].join(" ")}
+                  />
+                  <span className="pointer-events-none absolute bottom-1 left-1/2 -translate-x-1/2 translate-y-1 rounded-md bg-white/10 px-1.5 py-0.5 text-[10px] sm:text-xs text-white/80 backdrop-blur-sm opacity-0 transition-all duration-200 group-hover/icon:opacity-100 group-hover/icon:translate-y-0">
+                    {t.alt}
+                  </span>
+                </div>
+              ))}
+            </Marquee>
+          </div>
           <div className="relative mt-10">
             <RainbowButton
               asChild
@@ -111,7 +221,7 @@ const Hero = () => {
                 aria-label="Download my resume (PDF)"
                 className="inline-flex items-center"
               >
-                <Globe className="animate-spin mr-2 text-cyan-500" size={20} />
+                <Globe className="mr-2 text-cyan-500" size={20} />
                 <span className="font-bold">Download my Resume</span>
               </a>
             </RainbowButton>
