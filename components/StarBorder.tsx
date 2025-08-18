@@ -18,7 +18,10 @@ const StarBorder: React.FC<StarBorderProps> = ({
   speed = "7s",
   children,
 }) => {
-  const Comp = (as || "div") as React.ElementType;
+  // Ensure the polymorphic component accepts children to avoid TS inferring `children: never`
+  const Comp = (as || "div") as React.ComponentType<
+    React.PropsWithChildren<{ className?: string; style?: React.CSSProperties }>
+  >;
   return (
     <Comp
       className={`relative ${className}`}

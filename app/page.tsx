@@ -9,6 +9,7 @@ import Roles from "@/components/Roles";
 import Myapproach from "@/components/Myapproach";
 import EndPage from "@/components/EndPage";
 import GreetingsLoader from "@/components/GreetingsLoader";
+import ContactDialog from "@/components/ContactDialog";
 
 const Home = () => {
   const items = [
@@ -18,6 +19,7 @@ const Home = () => {
     { label: "Contact", href: "#contact" },
   ];
   const [bootDone, setBootDone] = React.useState(false);
+  const [contactOpen, setContactOpen] = React.useState(false);
   return (
     <main className=" flex justify-center items-center flex-col sm:px-10 overflow-hidden mx-auto ">
       {!bootDone && (
@@ -50,7 +52,14 @@ const Home = () => {
           animationTime={600}
           timeVariance={300}
           colors={[1, 2, 3, 1, 2, 3, 1, 4]}
+          onItemClick={(item, _index, e) => {
+            if (item.label.toLowerCase() === "contact") {
+              e.preventDefault();
+              setContactOpen(true);
+            }
+          }}
         />
+        <ContactDialog open={contactOpen} onOpenChange={setContactOpen} />
         <Hero />
         <Grid />
         <RecentProjects />

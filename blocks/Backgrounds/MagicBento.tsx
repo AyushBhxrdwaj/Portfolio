@@ -854,7 +854,6 @@ const MagicBento: React.FC<BentoProps> = ({
               "Next.Js",
               "Node.Js",
               "React.Js",
-              
               "TypeScript",
               "AI/ML",
               "Git",

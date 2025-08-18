@@ -1,7 +1,7 @@
 import LightRays from "@/blocks/Backgrounds/LightRays";
 import TextTyper from "@/blocks/TextAnimations/TextType";
 import React from "react";
-import RippleGrid from "@/blocks/Backgrounds/RippleGrid";
+import { AnimatedGridPattern } from "@/components/magicui/animated-grid-pattern";
 import { RainbowButton } from "./ui/rainbow-button";
 import { Globe } from "lucide-react";
 import { Highlighter } from "@/blocks/TextAnimations/highlighter";
@@ -104,19 +104,15 @@ const Hero = () => {
         />
       </div>
       <div className="absolute inset-0">
-        <RippleGrid
-          enableRainbow={true}
-          gridColor="#5227ff"
-          rippleIntensity={0.13}
-          gridSize={12}
-          gridThickness={13}
-          fadeDistance={1.2}
-          vignetteStrength={1.2}
-          glowIntensity={0.22}
-          mouseInteraction={true}
-          mouseInteractionRadius={1.5}
-          opacity={1}
-          timeScale={0.6}
+        <AnimatedGridPattern
+          width={56}
+          height={56}
+          strokeDasharray="6 10"
+          numSquares={80}
+          maxOpacity={0.25}
+          duration={3.2}
+          repeatDelay={0.4}
+          className="text-indigo-500/25 dark:text-indigo-400/20 [mask-image:radial-gradient(120%_60%_at_50%_40%,black,transparent_70%)]"
         />
       </div>
       <div className="flex justify-center relative my-20 z-10">

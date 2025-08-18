@@ -1,7 +1,7 @@
 /*
 	Installed from https://reactbits.dev/ts/tailwind/
 */
-'use client'
+"use client";
 import { useRef, useEffect } from "react";
 
 const LetterGlitch = ({
@@ -11,11 +11,11 @@ const LetterGlitch = ({
   outerVignette = true,
   smooth = true,
 }: {
-  glitchColors: string[];
-  glitchSpeed: number;
-  centerVignette: boolean;
-  outerVignette: boolean;
-  smooth: boolean;
+  glitchColors?: string[];
+  glitchSpeed?: number;
+  centerVignette?: boolean;
+  outerVignette?: boolean;
+  smooth?: boolean;
 }) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const animationRef = useRef<number | null>(null);
@@ -125,7 +125,7 @@ const LetterGlitch = ({
   const interpolateColor = (
     start: { r: number; g: number; b: number },
     end: { r: number; g: number; b: number },
-    factor: number,
+    factor: number
   ) => {
     const result = {
       r: Math.round(start.r + (end.r - start.r) * factor),
@@ -226,7 +226,7 @@ const LetterGlitch = ({
           letter.color = interpolateColor(
             startRgb,
             endRgb,
-            letter.colorProgress,
+            letter.colorProgress
           );
           needsRedraw = true;
         }

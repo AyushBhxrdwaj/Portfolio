@@ -19,6 +19,11 @@ export interface GooeyNavProps {
   timeVariance?: number;
   colors?: number[];
   initialActiveIndex?: number;
+  onItemClick?: (
+    item: GooeyNavItem,
+    index: number,
+    event: React.MouseEvent<HTMLAnchorElement>
+  ) => void;
 }
 
 const GooeyNav: React.FC<GooeyNavProps> = ({
@@ -30,6 +35,7 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
   timeVariance = 300,
   colors = [1, 2, 3, 1, 2, 3, 1, 4],
   initialActiveIndex = 0,
+  onItemClick,
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const navRef = useRef<HTMLUListElement>(null);
@@ -122,6 +128,10 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
   ) => {
     const liEl = e.currentTarget;
     const href = liEl.getAttribute("href") || "";
+    const item = items[index];
+
+    // custom click callback first (allows consumer to intercept and prevent scroll)
+    onItemClick?.(item, index, e);
 
     // Smooth scroll handling for in-page links
     if (href === "/") {

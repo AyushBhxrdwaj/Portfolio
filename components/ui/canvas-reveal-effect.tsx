@@ -192,7 +192,7 @@ const ShaderMaterial = ({
   uniforms: Uniforms;
 }) => {
   const { size } = useThree();
-  const ref = useRef<THREE.Mesh>();
+  const ref = useRef<THREE.Mesh | null>(null);
   let lastFrameTime = 0;
 
   useFrame(({ clock }) => {
@@ -203,54 +203,79 @@ const ShaderMaterial = ({
     }
     lastFrameTime = timestamp;
 
-    const material: any = ref.current.material;
-    const timeLocation = material.uniforms.u_time;
+    const material = ref.current.material as THREE.ShaderMaterial & {
+      uniforms: Record<string, { value: unknown }>;
+    };
+    const timeLocation = material.uniforms["u_time"] as { value: number };
     timeLocation.value = timestamp;
   });
 
-  const getUniforms = () => {
-    const preparedUniforms: any = {};
+  type UniformVal = number | THREE.Vector2 | THREE.Vector3 | Float32Array | THREE.Vector3[];
+  const makeUniform = (value: UniformVal): THREE.Uniform<UniformVal> => {
+    return {
+      value,
+      // Minimal clone impl to satisfy the Uniform interface
+      clone() {
+        // shallow clone is fine for our primitive/Vector values
+        return { ...this } as unknown as THREE.Uniform<UniformVal>;
+      },
+    } as unknown as THREE.Uniform<UniformVal>;
+  };
+  const getUniforms = (): { [uniform: string]: THREE.Uniform<UniformVal> } => {
+    const preparedUniforms: { [uniform: string]: THREE.Uniform<UniformVal> } = {};
 
     for (const uniformName in uniforms) {
-      const uniform: any = uniforms[uniformName];
+      const uniform = uniforms[uniformName] as {
+        value: number | number[] | number[][];
+        type: string;
+      };
 
       switch (uniform.type) {
         case "uniform1f":
-          preparedUniforms[uniformName] = { value: uniform.value, type: "1f" };
+          preparedUniforms[uniformName] = makeUniform(uniform.value as number);
           break;
-        case "uniform3f":
-          preparedUniforms[uniformName] = {
-            value: new THREE.Vector3().fromArray(uniform.value),
-            type: "3f",
-          };
+        case "uniform3f": {
+          const arr = Array.isArray(uniform.value)
+            ? (uniform.value as number[])
+            : [0, 0, 0];
+          preparedUniforms[uniformName] = makeUniform(
+            new THREE.Vector3().fromArray(arr as number[])
+          );
           break;
-        case "uniform1fv":
-          preparedUniforms[uniformName] = { value: uniform.value, type: "1fv" };
+        }
+        case "uniform1fv": {
+          const vals = Array.isArray(uniform.value)
+            ? (uniform.value as number[])
+            : [Number(uniform.value || 0)];
+          preparedUniforms[uniformName] = makeUniform(new Float32Array(vals));
           break;
+        }
         case "uniform3fv":
-          preparedUniforms[uniformName] = {
-            value: uniform.value.map((v: number[]) =>
+          preparedUniforms[uniformName] = makeUniform(
+            (uniform.value as number[][]).map((v) =>
               new THREE.Vector3().fromArray(v)
-            ),
-            type: "3fv",
-          };
+            )
+          );
           break;
-        case "uniform2f":
-          preparedUniforms[uniformName] = {
-            value: new THREE.Vector2().fromArray(uniform.value),
-            type: "2f",
-          };
+        case "uniform2f": {
+          const arr2 = Array.isArray(uniform.value)
+            ? (uniform.value as number[])
+            : [0, 0];
+          preparedUniforms[uniformName] = makeUniform(
+            new THREE.Vector2().fromArray(arr2 as number[])
+          );
           break;
+        }
         default:
           console.error(`Invalid uniform type for '${uniformName}'.`);
           break;
       }
     }
 
-    preparedUniforms["u_time"] = { value: 0, type: "1f" };
-    preparedUniforms["u_resolution"] = {
-      value: new THREE.Vector2(size.width * 2, size.height * 2),
-    }; // Initialize u_resolution
+    preparedUniforms["u_time"] = makeUniform(0);
+    preparedUniforms["u_resolution"] = makeUniform(
+      new THREE.Vector2(size.width * 2, size.height * 2)
+    ); // Initialize u_resolution
     return preparedUniforms;
   };
 
@@ -282,7 +307,7 @@ const ShaderMaterial = ({
   }, [size.width, size.height, source]);
 
   return (
-    <mesh ref={ref as any}>
+    <mesh ref={ref as React.MutableRefObject<THREE.Mesh | null>}>
       <planeGeometry args={[2, 2]} />
       <primitive object={material} attach="material" />
     </mesh>
