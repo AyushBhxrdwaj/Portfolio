@@ -74,7 +74,7 @@ const Myapproach = () => {
   };
   return (
     <section id="my-approach" className="w-full py-10 sm:py-16">
-      <h1 className="text-center mb-12 text-7xl  font-bold">
+      <h1 className="text-center mb-12 text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold">
         My <span className="text-purple-500">Approach</span>
       </h1>
       <div className="mx-auto max-w-6xl px-4">

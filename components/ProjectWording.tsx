@@ -32,7 +32,9 @@ const ProjectWording = () => {
       className="relative py-16 sm:py-24 overflow-hidden scroll-mt-28 [--marquee-duration-1:16s] [--marquee-duration-2:20s]"
     >
       <div className="text-center">
-        <h2 className="text-3xl sm:text-5xl md:text-6xl font-bold text-purple-400">Project stories</h2>
+        <h2 className="text-3xl sm:text-5xl md:text-6xl font-bold text-purple-400">
+          Project stories
+        </h2>
       </div>
 
       {/* Marquee Row 1 */}
