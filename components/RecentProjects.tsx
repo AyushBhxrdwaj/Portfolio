@@ -19,8 +19,10 @@ const RecentProjects = () => {
   return (
     <div id="projects" className="py-16 sm:py-20 text-center scroll-mt-28">
       <div className="flex flex-col items-center">
-        <h2 className="text-6xl font-bold text-center">A small selection of</h2>
-        <h2 className="text-6xl font-bold text-center -mt-1 text-pink-600">
+        <h2 className="text-3xl sm:text-5xl md:text-6xl font-bold text-center">
+          A small selection of
+        </h2>
+        <h2 className="text-3xl sm:text-5xl md:text-6xl font-bold text-center -mt-1 text-pink-600">
           Recent projects
         </h2>
       </div>
