@@ -3,9 +3,10 @@
 */
 "use client";
 import React, { useRef, useEffect, useState, useCallback } from "react";
+import Lightning from "./Lightning";
 import { gsap } from "gsap";
 // import Lightning from "./Lightning";
-import Hyperspeed from "./Hyperspeed";
+// Hyperspeed removed; using Lightning instead
 import LetterGlitch from "./LetterGlitch";
 import AnimatedList from "../TextAnimations/AnimatedList";
 import TextType from "../TextAnimations/TextType";
@@ -95,7 +96,7 @@ const cardData: BentoCardProps[] = [
     description: "",
     img: "",
     color: "#0000",
-    component: <Hyperspeed />,
+    component: <Lightning />,
     textClass: "text-[#EDF2F4]",
     titleClass: "text-base font-bold",
   },
@@ -613,7 +614,7 @@ const MagicBento: React.FC<BentoProps> = ({
     // Try modern clipboard API first
     try {
       await navigator.clipboard.writeText(email);
-    } catch (err) {
+    } catch {
       // Fallback for older browsers or denied permissions
       try {
         const textarea = document.createElement("textarea");
@@ -864,7 +865,6 @@ const MagicBento: React.FC<BentoProps> = ({
               "ChatGPT",
               "TailwindCSS",
               "Figma",
-              
             ];
 
             return (
