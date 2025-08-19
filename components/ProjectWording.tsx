@@ -1,5 +1,5 @@
 import React from "react";
-import ScrollFloat from "@/blocks/TextAnimations/ScrollFloat";
+// Removed ScrollFloat (floating text animation) per request
 
 const stories = [
   {
@@ -32,18 +32,7 @@ const ProjectWording = () => {
       className="relative py-16 sm:py-24 overflow-hidden scroll-mt-28 [--marquee-duration-1:16s] [--marquee-duration-2:20s]"
     >
       <div className="text-center">
-        <ScrollFloat
-          containerClassName="my-0 text-center"
-          textClassName="text-4xl sm:text-6xl md:text-7xl font-bold text-purple-400"
-          animationDuration={1}
-          ease="back.inOut(2)"
-          scrollStart="top bottom"
-          scrollEnd="bottom top+=20%"
-          stagger={0.03}
-          scrub={0.6}
-        >
-          Project stories
-        </ScrollFloat>
+        <h2 className="text-6xl font-bold text-purple-400">Project stories</h2>
       </div>
 
       {/* Marquee Row 1 */}

@@ -1,7 +1,7 @@
 import { projects } from "@/data";
 import React from "react";
 import Image from "next/image";
-import ScrollFloat from "@/blocks/TextAnimations/ScrollFloat";
+// Removed ScrollFloat (floating text animation) per request
 import { Github, Globe } from "lucide-react";
 
 type Project = {
@@ -19,30 +19,10 @@ const RecentProjects = () => {
   return (
     <div id="projects" className="py-16 sm:py-20 text-center scroll-mt-28">
       <div className="flex flex-col items-center">
-        <ScrollFloat
-          containerClassName="my-0 text-center"
-          textClassName="text-4xl sm:text-6xl md:text-7xl font-bold"
-          animationDuration={1}
-          ease="back.inOut(2)"
-          scrollStart="top bottom"
-          scrollEnd="bottom top+=20%"
-          stagger={0.03}
-          scrub={0.6}
-        >
-          A small selection of
-        </ScrollFloat>
-        <ScrollFloat
-          containerClassName="my-0 text-center -mt-1"
-          textClassName="text-4xl sm:text-6xl md:text-7xl font-bold text-pink-600"
-          animationDuration={1}
-          ease="back.inOut(2)"
-          scrollStart="top bottom"
-          scrollEnd="bottom top+=20%"
-          stagger={0.03}
-          scrub={0.6}
-        >
+        <h2 className="text-6xl font-bold text-center">A small selection of</h2>
+        <h2 className="text-6xl font-bold text-center -mt-1 text-pink-600">
           Recent projects
-        </ScrollFloat>
+        </h2>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 mt-10 sm:mt-16 px-3 sm:px-4 max-w-4xl mx-auto">
         {projects.map((p) => {
