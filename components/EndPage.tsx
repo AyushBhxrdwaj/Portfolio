@@ -108,7 +108,7 @@ const EndPage = () => {
                 <Github className="h-5 w-5 sm:h-5 sm:w-5 transition-transform duration-200 group-hover:scale-110" />
               </a>
               <a
-                href="https://leetcode.com/"
+                href="https://leetcode.com/u/_ayushbhardwaj___/"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="LeetCode"

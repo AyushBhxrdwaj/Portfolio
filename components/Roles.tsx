@@ -8,7 +8,7 @@ const Roles = () => {
   return (
     <div className="py-20 px-4 max-w-7xl mx-auto">
       <div className="text-center mb-16">
-        <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold bg-gradient-to-r from-gray-400 via-gray-600 to-gray-300 bg-clip-text text-transparent mb-4 drop-shadow-2xl">
+        <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold bg-gradient-to-r from-gray-300 via-slate-300 to-zinc-300 bg-clip-text text-transparent mb-4 drop-shadow-2xl">
           Roles
         </h1>
       </div>
