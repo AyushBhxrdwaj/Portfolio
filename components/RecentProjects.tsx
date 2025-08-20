@@ -102,12 +102,12 @@ const RecentProjects = () => {
                   <h3 className="text-lg font-bold text-white mb-1">{title}</h3>
                   <p className="text-xs text-gray-400 mb-2">
                     {id === 1
-                      ? "Jan 2024 - Feb 2024"
+                      ? "June 2025 - July 2025"
                       : id === 2
-                      ? "June 2023 - Present"
+                      ? "Feb 2025 - March 2025"
                       : id === 3
-                      ? "March 2024"
-                      : "Dec 2023"}
+                      ? "April 2025"
+                      : "Dec 2024"}
                   </p>
                   {des && (
                     <p className="text-xs leading-relaxed text-gray-300 mb-3 line-clamp-3">

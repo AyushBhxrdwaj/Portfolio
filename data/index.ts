@@ -13,7 +13,7 @@ export const projects = [
     title: "X Agent-An AI MCP Agent",
     des: "A Node.js agent demonstrating the power of combining Generative AI for content creation with the Model Context Protocol (MCP) for reliable tool execution. This project provides an interactive CLI that can automatically compose and post tweets on twitter.",
     img: "/p2.png",
-    iconLists: ["/node.svg", "/tail.svg", "/stream.svg","LLM"],
+    iconLists: ["/node.svg", "/stream.svg","LLM"],
     link: "https://github.com/AyushBhxrdwaj/X_agent",
   },
   {

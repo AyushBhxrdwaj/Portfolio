@@ -1,4 +1,5 @@
 import React from "react";
+import { Marquee } from "./marquee";
 // Removed ScrollFloat (floating text animation) per request
 
 const stories = [
@@ -29,7 +30,7 @@ const ProjectWording = () => {
   return (
     <section
       id="About"
-      className="relative py-16 sm:py-24 overflow-hidden scroll-mt-28 [--marquee-duration-1:16s] [--marquee-duration-2:20s]"
+      className="relative py-16 sm:py-24 overflow-hidden scroll-mt-28 [--marquee-duration-1:12s] sm:[--marquee-duration-1:16s] [--marquee-duration-2:15s] sm:[--marquee-duration-2:20s]"
     >
       <div className="text-center">
         <h2 className="text-3xl sm:text-5xl md:text-6xl font-bold text-purple-400">
@@ -38,17 +39,16 @@ const ProjectWording = () => {
       </div>
 
       {/* Marquee Row 1 */}
-      <div className="mt-8 sm:mt-10 [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)] px-2 sm:px-0">
-        <div
-          className="flex gap-2 sm:gap-3 whitespace-nowrap will-change-transform transform-gpu hover:[animation-play-state:paused]"
-          style={{
-            animation: `marquee-horizontal-slow var(--marquee-duration-1) linear infinite`,
-          }}
+      <div className="mt-8 sm:mt-10 px-2 sm:px-0 [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
+        <Marquee
+          pauseOnHover
+          repeat={3}
+          className="[--duration:16s] sm:[--duration:20s] [--gap:0.5rem] sm:[--gap:0.75rem]"
         >
-          {[...items, ...items].map((s, idx) => (
+          {items.map((s, idx) => (
             <article
               key={`row1-${idx}`}
-              className="box-border w-[90vw] min-w-[90vw] max-w-[90vw] sm:w-[60vw] sm:min-w-[60vw] sm:max-w-[60vw] md:w-[33.333vw] md:min-w-[33.333vw] md:max-w-[33.333vw] lg:w-[25vw] lg:min-w-[25vw] lg:max-w-[25vw] xl:w-[20vw] xl:min-w-[20vw] xl:max-w-[20vw] min-h-[200px] rounded-2xl border border-white/10 bg-black/30 backdrop-blur-sm px-6 py-5 text-left whitespace-normal flex flex-col"
+              className="box-border w-[85vw] min-w-[85vw] max-w-[85vw] sm:w-[60vw] sm:min-w-[60vw] sm:max-w-[60vw] md:w-[33.333vw] md:min-w-[33.333vw] md:max-w-[33.333vw] lg:w-[25vw] lg:min-w-[25vw] lg:max-w-[25vw] xl:w-[20vw] xl:min-w-[20vw] xl:max-w-[20vw] min-h-[200px] rounded-2xl border border-white/10 bg-black/30 backdrop-blur-sm px-6 py-5 text-left whitespace-normal flex flex-col"
             >
               <h3 className="text-lg font-bold text-white/90">{s.title}</h3>
               <p className="mt-2 text-sm italic font-semibold text-zinc-300 leading-relaxed">
@@ -56,21 +56,21 @@ const ProjectWording = () => {
               </p>
             </article>
           ))}
-        </div>
+        </Marquee>
       </div>
 
       {/* Marquee Row 2 (reverse) */}
-      <div className="mt-4 sm:mt-6 [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)] px-2 sm:px-0">
-        <div
-          className="flex gap-2 sm:gap-3 whitespace-nowrap will-change-transform transform-gpu hover:[animation-play-state:paused]"
-          style={{
-            animation: `marquee-horizontal-slow-reverse var(--marquee-duration-1) linear infinite`,
-          }}
+      <div className="mt-4 sm:mt-6 px-2 sm:px-0 [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
+        <Marquee
+          reverse
+          pauseOnHover
+          repeat={3}
+          className="[--duration:16s] sm:[--duration:20s] [--gap:0.5rem] sm:[--gap:0.75rem]"
         >
-          {[...items, ...items].map((s, idx) => (
+          {items.map((s, idx) => (
             <article
               key={`row2-${idx}`}
-              className="box-border w-[90vw] min-w-[90vw] max-w-[90vw] sm:w-[60vw] sm:min-w-[60vw] sm:max-w-[60vw] md:w-[33.333vw] md:min-w-[33.333vw] md:max-w-[33.333vw] lg:w-[25vw] lg:min-w-[25vw] lg:max-w-[25vw] xl:w-[20vw] xl:min-w-[20vw] xl:max-w-[20vw] min-h-[200px] rounded-2xl border border-white/10 bg-black/30 backdrop-blur-sm px-6 py-5 text-left whitespace-normal flex flex-col"
+              className="box-border w-[85vw] min-w-[85vw] max-w-[85vw] sm:w-[60vw] sm:min-w-[60vw] sm:max-w-[60vw] md:w-[33.333vw] md:min-w-[33.333vw] md:max-w-[33.333vw] lg:w-[25vw] lg:min-w-[25vw] lg:max-w-[25vw] xl:w-[20vw] xl:min-w-[20vw] xl:max-w-[20vw] min-h-[200px] rounded-2xl border border-white/10 bg-black/30 backdrop-blur-sm px-6 py-5 text-left whitespace-normal flex flex-col"
             >
               <h3 className="text-lg font-bold text-white/90">{s.title}</h3>
               <p className="mt-2 text-sm italic font-semibold text-zinc-300 leading-relaxed">
@@ -78,7 +78,7 @@ const ProjectWording = () => {
               </p>
             </article>
           ))}
-        </div>
+        </Marquee>
       </div>
 
       {/* Keyframes moved to globals.css to keep this component server-safe */}
