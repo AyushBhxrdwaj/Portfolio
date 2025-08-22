@@ -10,9 +10,9 @@ Live Site: https://www.ayuxh.me
 
 ## Demo
 
-```
+
 ![Portfolio Preview](public/image.png)
-```
+
 
 ---
 
