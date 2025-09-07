@@ -10,11 +10,9 @@ Live Site: https://www.ayuxh.me
 
 ## Demo
 
-Add a preview image (place at `public/preview.png`):
 
-```
-![Portfolio Preview](public/preview.png)
-```
+![Portfolio Preview](public/image.png)
+
 
 ---
 
