@@ -1,3 +1,4 @@
+import { icons } from "lucide-react";
 
 export const projects = [
   {
@@ -33,6 +34,14 @@ export const projects = [
     link: "https://supercell-redesigned.pages.dev/",
     source: "https://github.com/AyushBhxrdwaj/supercell_redesigned"
   },
+  {
+    id:5,
+    title:"VibeCall",
+    des:"VibeCall is a modern video calling and meeting application built with Next.js, designed to provide seamless video conferencing features with a clean UI.",
+    iconLists:["/next.svg","/tail.svg","/ts.svg"],
+    link:"https://vibe-call-tau.vercel.app/",
+    source:"https://github.com/AyushBhxrdwaj/VibeCall"
+  }
 ];
 
 export const Role = [

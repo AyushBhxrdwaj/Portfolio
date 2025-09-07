@@ -84,7 +84,17 @@ const RecentProjects = () => {
                         playsInline
                         className="w-full h-full object-cover"
                       />
-                    ) : (
+                    ) :id==5?(
+                      <video
+                      src='/vid5.mp4'
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                      className="w-full h-full object-cover"
+                    />
+
+                    ): (
                       <Image
                         src={img}
                         alt={title}
@@ -107,7 +117,7 @@ const RecentProjects = () => {
                       ? "Feb 2025 - March 2025"
                       : id === 3
                       ? "April 2025"
-                      : "Dec 2024"}
+                      : id==5?'August 2025-September 2025':'Dec 2024'}
                   </p>
                   {des && (
                     <p className="text-xs leading-relaxed text-gray-300 mb-3 line-clamp-3">
@@ -150,6 +160,18 @@ const RecentProjects = () => {
 
                     {/* Website button only for card 4 */}
                     {id === 4 && website && (
+                      <a
+                        href={website}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="inline-flex items-center gap-1.5 rounded-full bg-white px-3 py-1.5 text-xs font-medium text-black hover:bg-gray-100 transition"
+                        aria-label={`Open website for ${title}`}
+                      >
+                        <Globe size={12} />
+                        Website
+                      </a>
+                    )}
+                    {id === 5 && website && (
                       <a
                         href={website}
                         target="_blank"
